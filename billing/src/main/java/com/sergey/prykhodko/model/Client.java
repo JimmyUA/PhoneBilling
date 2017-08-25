@@ -1,36 +1,37 @@
-package com.sergey.prykhodko.model;
+package com.sergey.prykhodko.model.users;
 
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 
 /**
  * Created by Sergey on 25.07.2017.
  */
 public class Client extends User {
+    private int id;
     private String postAdress;
     private boolean isActive;
-    private int currentBalance;
 
 
     public void makeRequestToInterconnect(){}
 
-    public boolean isActive(){
-        return isActive;
+    public void logIn() {
+
     }
 
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////Work with balance/////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
-    public double checkCurrentBalance(){
-        return currentBalance * 1.0 / 100;
-    }
+    public void checkCurrentBalance(){}
 
-    public void topUpBalance(int topUpSum){
-        currentBalance += topUpSum;
-    }
+    public void topUpBalance(int topUpSum){}
 
     ///////////////////////////////////////////////////////////////////////
-    /////////////////////////Work with tarifs////////////////////////////
+    /////////////////////////Work with services////////////////////////////
     //////////////////////////////////////////////////////////////////////
+
+    public void checkAvailableServices(){}
+
+    public void checkActiveServices(){}
 
     private void makeRequestToChangeTariffPlan(TariffPlan current, TariffPlan newOne){}
 }

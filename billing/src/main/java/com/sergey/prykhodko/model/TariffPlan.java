@@ -1,6 +1,6 @@
-package com.sergey.prykhodko.model;
+package com.sergey.prykhodko.model.tariffplans;
 
-import com.sergey.prykhodko.model.Service;
+import com.sergey.prykhodko.model.services.Service;
 
 import java.util.Set;
 
@@ -10,6 +10,5 @@ import java.util.Set;
 public class TariffPlan {
     private int id;
     private String name;
-    private int monthlyPayment;
     private Set<Service> services;
 }
