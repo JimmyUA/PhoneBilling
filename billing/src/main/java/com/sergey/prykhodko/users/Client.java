@@ -1,15 +1,18 @@
-package com.sergey.prykhodko.model.users;
+package com.sergey.prykhodko.users;
 
-import com.sergey.prykhodko.model.tariffplans.TariffPlan;
+import com.sergey.prykhodko.services.Service;
+import com.sergey.prykhodko.tariffplans.TariffPlan;
+
+import java.util.Set;
 
 /**
  * Created by Sergey on 25.07.2017.
  */
 public class Client extends User {
-    private int id;
     private String postAdress;
     private boolean isActive;
-
+    private Set<Service> availableServises;
+    private Set<Service> activeServices;
 
     public void makeRequestToInterconnect(){}
 
@@ -32,6 +35,26 @@ public class Client extends User {
     public void checkAvailableServices(){}
 
     public void checkActiveServices(){}
+
+    public void makeRequestToActivateService(Service service){
+        if (isAvailable(service)){
+
+        }
+    }
+
+    private boolean isAvailable(Service service){
+        return activeServices.contains(service);
+    }
+
+    public void makeRequestToDeactivateService(Service service){
+        if (isActive(service)){
+
+        }
+    }
+
+    private boolean isActive(Service service){
+        return activeServices.contains(service);
+    }
 
     private void makeRequestToChangeTariffPlan(TariffPlan current, TariffPlan newOne){}
 }

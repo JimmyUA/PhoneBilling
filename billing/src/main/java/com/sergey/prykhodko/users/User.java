@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.model.users;
+package com.sergey.prykhodko.users;
 
 /**
  *
