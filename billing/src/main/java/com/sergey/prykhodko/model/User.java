@@ -1,13 +1,12 @@
-package com.sergey.prykhodko.model.users;
+package com.sergey.prykhodko.model;
 
 /**
  *
  */
-public abstract class User {
+public abstract class User  extends BillingEntity{
     private String login;
     private String password;
     private String email;
 
-    public abstract void logIn();
 
 }

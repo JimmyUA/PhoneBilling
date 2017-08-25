@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.model.services;
+package com.sergey.prykhodko.model;
 
 /**
  * Created by Sergey on 25.07.2017.

@@ -1,7 +1,4 @@
-package com.sergey.prykhodko.model.users;
-
-import com.sergey.prykhodko.model.services.Service;
-import com.sergey.prykhodko.services.Service;
+package com.sergey.prykhodko.model;
 
 public class Admin extends User{
 
