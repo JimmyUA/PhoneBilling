@@ -32,9 +32,9 @@
                             <div class="field" data-fieldname="e-mail">
                                 <input id="confirm password" autocomplete="off" value="" maxlength="50" placeholder="Confirm password" class="" type="password">
                             </div>
-                            <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn">
-                                <span class="ui-button-text ui-c">REGISTER</span>
-                            </button>
+                                <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn">
+                                    <span class="ui-button-text ui-c">REGISTER</span>
+                                </button>
                         </div>
                     </form>
                 </div>

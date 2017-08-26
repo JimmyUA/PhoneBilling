@@ -31,17 +31,18 @@ footer{
 button.submitBtn{
     background: #426C48;
     color: white;
-    height: auto;
+    height: 50px;
     padding: 3px 4px;
     font-weight: bold;
+    font-size: large;
 }
 
 #registerButton{
     position: relative;
-    width: 200px;
+    width: -moz-available;
     min-height: 30px;
     border-radius: 50px;
-    margin: 0 auto;
+    margin: 20px 0 20px;
 }
 
 button.submitBtn:hover{
@@ -120,7 +121,7 @@ img{
 #registrationForm{
     position: relative;
     margin: 0 auto;
-    width: 1100px;
+    width: -moz-available;
 }
 
 .header{
@@ -157,7 +158,7 @@ img{
     font-size: 18px;
     font-weight: bold;
     padding: 12px;
-    width: 380px;
+    width: -moz-available;
     text-align: center;
 }
 

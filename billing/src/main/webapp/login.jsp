@@ -23,9 +23,9 @@
                 <input id="loginForm:password" name="loginForm:password" value="" class="formsInputElem formsInputMiddle" type="password">
             </div>
         </div>
-        <button id="loginForm:submit" name="loginForm:submit" class="ui-button  submitBtn">
-            <span class="ui-button-text ui-c">Login</span>
-        </button>
+            <button id="loginForm:submit" name="loginForm:submit" class="ui-button  submitBtn">
+                <span class="ui-button-text ui-c">Login</span>
+            </button>
     </form>
 </article>
 <footer>
