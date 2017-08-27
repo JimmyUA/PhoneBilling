@@ -9,14 +9,14 @@
 <header>
 
 </header>
-<article>
+<article class="loginArticle">
     <form id="loginForm" name="loginForm" method="post" action="" class="loginForm">
         <input name="loginForm" value="loginForm" type="hidden">
         <input id="loginForm:hiddenLocalStorage" name="loginForm:hiddenLocalStorage" type="hidden">
         <div id="loginTable" style="display: inline-flex;" class="formsWrapperDiv">
             <div class="formsFloatDiv">
-                <img src="/drawable/login.png?ln=default" alt="Login:">
-                <img src="/drawable/key.png?ln=default" alt="Password:">
+                <label for="loginForm:login"><img src="/drawable/login.png?ln=default" alt="Login:"></label>
+                <label for="loginForm:password"><img src="/drawable/key.png?ln=default" alt="Password:"></label>
             </div>
             <div class="formsFloatDiv">
                 <input id="loginForm:login" name="loginForm:login" class="formsInputElem formsInputMiddle" type="text">
