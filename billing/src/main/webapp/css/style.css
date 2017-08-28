@@ -184,3 +184,11 @@ input{
     margin-bottom: 26px;
     padding: 0;
 }
+
+.ifNotRegister {
+    text-align: center;
+}
+
+.ifNotRegister p{
+    font-size: 14px;
+}
