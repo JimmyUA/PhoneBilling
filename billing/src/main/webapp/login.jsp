@@ -1,3 +1,10 @@
+<%@page import="javax.naming.Context"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="javax.naming.InitialContext"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -31,6 +38,29 @@
     <div class="ifNotRegister">
         <p>Not registered yet? <a href="register.jsp"> Click here!</a></p>
     </div>
+    <h1>Data in my Connection Pooled Database</h1>
+    <br>
+    <%
+        InitialContext initialContext = new InitialContext();
+        Context context = (Context) initialContext.lookup("java:comp/env");
+        //The JDBC Data source that we just created
+        DataSource ds = (DataSource) context.lookup("jdbc/billing");
+        Connection connection = ds.getConnection();
+
+        if (connection == null)
+        {
+            throw new SQLException("Error establishing connection!");
+        }
+        String query = "SELECT * FROM clients";
+
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet rs = statement.executeQuery();
+
+        while (rs.next())
+        {
+            out.print(rs.getString("name") + "< br >");
+        }
+    %>
 
 </article>
 <footer>
