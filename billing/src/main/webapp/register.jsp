@@ -3,7 +3,8 @@
 <html>
 <head>
     <title>Registration</title>
-    <link href="css/login.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="js/registration.js"></script>
 </head>
 <body>

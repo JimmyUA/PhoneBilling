@@ -1,19 +1,18 @@
 $(document).ready(function() {
-    $("confirmPassword").keyup(validate);
+    $("#confirmPassword").keyup(validate);
 });
 
 
 function validate() {
-    var password1 = $("password").value();
-    var password2 = $("confirmPassword").value();
+    var password1 = $("#password").val();
+    var password2 = $("#confirmPassword").val();
 
 
-
-    if(password1=== password2){
-        $("validate-status").text("valid");
-    }
-    else {
-        $("validate-status").text("invalid");
-    }
+    if (password2 == password1) {
+    $("#validate-status").text("valid");
+}
+else {
+    $("#validate-status").text("invalid");
+}
 
 }

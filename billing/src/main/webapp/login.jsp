@@ -3,7 +3,7 @@
 <html>
 <head>
     <title>Billing</title>
-    <link href="css/login.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <header>
@@ -27,6 +27,11 @@
                 <span class="ui-button-text ui-c">Login</span>
             </button>
     </form>
+
+    <div class="ifNotRegister">
+        <p>Not registered yet? <a href="register.jsp"> Click here!</a></p>
+    </div>
+
 </article>
 <footer>
 
