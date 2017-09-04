@@ -8,6 +8,11 @@ public abstract class User {
     private String password;
     private String email;
 
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
+
     public abstract void logIn();
 
 }

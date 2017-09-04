@@ -1,6 +1,7 @@
+<%@ page contentType="text/html;charset=UTF-8; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
 <head>
     <title>Cabinet</title>
     <link href="css/style.css" rel="stylesheet">
@@ -9,6 +10,9 @@
 <header>
     <div class="cabinetGreeting">
         <p>Hello, ${name}</p>
+    </div>
+    <div class="pull-right">
+
     </div>
 </header>
 

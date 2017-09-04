@@ -14,6 +14,10 @@ public class Client extends User {
     private Set<Service> availableServises;
     private Set<Service> activeServices;
 
+    public Client(String login, String password) {
+        super(login, password);
+    }
+
     public void makeRequestToInterconnect(){}
 
     public void logIn() {

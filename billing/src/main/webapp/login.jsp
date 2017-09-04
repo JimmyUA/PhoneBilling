@@ -5,19 +5,35 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="javax.sql.DataSource"%>
 <%@page import="javax.naming.InitialContext"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8; charset=UTF-8" pageEncoding="UTF-8" %>
+
+
 <html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<c:set var="language"/>
+
+<c:if test="${not empty param.language}">
+    <fmt:setLocale value="${param.language}" scope="session"/>
+</c:if>
+<c:if test="${not empty language}">
+    <fmt:setLocale value="${language}" scope="session"/>
+</c:if>
+
+<fmt:setBundle basename="bundle.billing"/>
 <head>
     <title>Billing</title>
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 <header>
-
+    <form name="chooseLanguage" onchange="submit()">
+        <input type="image" name="language" value="ru" ${language == "ru" ? "selected" : ""} src="/drawable/rus.jpg">
+        <input type="image" name="language" value="en" ${language == "en" ? "selected" : ""} src="/drawable/eng.JPG">
+    </form>
 </header>
 <article class="loginArticle">
-    <form id="loginForm" name="loginForm" method="post" action="" class="loginForm">
+    <form id="loginForm" name="loginForm" method="post" action="<c:url value="/login"/>" class="loginForm" accept-charset="UTF-8">
         <input name="loginForm" value="loginForm" type="hidden">
         <input id="loginForm:hiddenLocalStorage" name="loginForm:hiddenLocalStorage" type="hidden">
         <div id="loginTable" style="display: inline-flex;" class="formsWrapperDiv">
@@ -31,36 +47,32 @@
             </div>
         </div>
             <button id="loginForm:submit" name="loginForm:submit" class="ui-button  submitBtn">
-                <span class="ui-button-text ui-c">Login</span>
+                <span class="ui-button-text ui-c"><fmt:message key="login"/></span>
             </button>
     </form>
 
     <div class="ifNotRegister">
         <p>Not registered yet? <a href="register.jsp"> Click here!</a></p>
     </div>
-    <h1>Data in my Connection Pooled Database</h1>
-    <br>
-    <%
-        InitialContext initialContext = new InitialContext();
-        Context context = (Context) initialContext.lookup("java:comp/env");
-        //The JDBC Data source that we just created
-        DataSource ds = (DataSource) context.lookup("jdbc/billing");
-        Connection connection = ds.getConnection();
+    <%--<h1>Data in my Connection Pooled Database</h1>--%>
+    <%--<br>--%>
+    <%--<%--%>
+        <%--InitialContext initialContext = new InitialContext();--%>
+        <%--Context context = (Context) initialContext.lookup("java:comp/env");--%>
+        <%--//The JDBC Data source that we just created--%>
+        <%--DataSource ds = (DataSource) context.lookup("jdbc/billing");--%>
+        <%--Connection connection = ds.getConnection();--%>
 
-        if (connection == null)
-        {
-            throw new SQLException("Error establishing connection!");
-        }
-        String query = "SELECT * FROM clients";
+        <%--if (connection == null)--%>
+        <%--{--%>
+            <%--throw new SQLException("Error establishing connection!");--%>
+        <%--}--%>
+        <%--String query = "SELECT * FROM clients";--%>
 
-        PreparedStatement statement = connection.prepareStatement(query);
-        ResultSet rs = statement.executeQuery();
+        <%--PreparedStatement statement = connection.prepareStatement(query);--%>
+        <%--ResultSet rs = statement.executeQuery();--%>
 
-        while (rs.next())
-        {
-            out.print(rs.getString("name") + "< br >");
-        }
-    %>
+    <%--%>--%>
 
 </article>
 <footer>

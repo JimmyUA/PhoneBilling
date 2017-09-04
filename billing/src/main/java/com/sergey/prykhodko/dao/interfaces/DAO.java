@@ -1,10 +1,7 @@
-package com.sergey.prykhodko.dao;
+package com.sergey.prykhodko.dao.interfaces;
 
 import com.sergey.prykhodko.users.User;
 
 public interface DAO {
-
-    void storeUser(User user);
-    User getUser();
 
 }

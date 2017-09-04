@@ -1,4 +1,10 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-public interface UserDAO {
+import com.sergey.prykhodko.users.User;
+
+import java.sql.SQLException;
+
+public interface UserDAO extends DAO {
+    void storeUser(User user);
+    User getUser(String login) throws SQLException;
 }

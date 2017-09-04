@@ -1,5 +1,6 @@
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
     <title>Registration</title>
@@ -17,15 +18,15 @@
             <div class="page-canvas">
                 <div class="signup-wrapper">
                     <h1 class="header">Join our billing!</h1>
-                    <form class="signup-form" method="post" action="" >
+                    <form class="signup-form" method="post" action="<c:url value="/registration"/>" >
                         <div>
                             <div class="field" data-fieldname="name">
                                 <input id="full-name" autocomplete="off" value="" maxlength="50"
-                                       placeholder="First name and second name" class="" title="Should contain 2 words"
+                                       placeholder="Full name" class="" title="Should contain 2 words"
                                        pattern="[A-Za-z\d]* [A-Za-z\d]*">
                             </div>
                             <div class="field" data-fieldname="login">
-                                <input id="login" autocomplete="off" value=""  maxlength="20"
+                                <input id="login" name="login" autocomplete="off" value=""  maxlength="20"
                                        placeholder="Chose login" class="" required pattern="^[A-Za-z0-9_]{3,25}$"
                                         title="Should be longer than 3 letters">
                             </div>
@@ -45,8 +46,8 @@
                                        placeholder="Confirm password" class="" type="password" required
                                         title="Passwords should be equals" onchange="validate()">
                             </div>
-                                <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn">
-                                    <span class="ui-button-text ui-c">REGISTER</span>
+                                <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn >
+                                    <span class="ui-button-text>REGISTER</span>
                                 </button>
                             <p id="validate-status"></p>
                         </div>
