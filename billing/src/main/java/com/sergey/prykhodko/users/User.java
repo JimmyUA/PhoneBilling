@@ -4,9 +4,10 @@ package com.sergey.prykhodko.users;
  *
  */
 public abstract class User {
-    private String login;
-    private String password;
-    private String email;
+    protected String login;
+    protected String password;
+    protected String email;
+    protected UserRole role;
 
     public User(String login, String password) {
         this.login = login;

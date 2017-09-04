@@ -16,6 +16,7 @@ public class Client extends User {
 
     public Client(String login, String password) {
         super(login, password);
+        role = UserRole.CLIENT;
     }
 
     public void makeRequestToInterconnect(){}
