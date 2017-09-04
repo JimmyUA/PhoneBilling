@@ -4,6 +4,10 @@ import com.sergey.prykhodko.services.Service;
 
 public class Admin extends User{
 
+    public Admin(String login, String password) {
+        super(login, password);
+    }
+
     public void logIn() {
 
     }
