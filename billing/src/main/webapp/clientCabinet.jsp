@@ -1,5 +1,6 @@
+<%@ page import="com.sergey.prykhodko.users.User" %>
 <%@ page contentType="text/html;charset=UTF-8; charset=UTF-8" pageEncoding="UTF-8" %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 
 <head>
@@ -9,7 +10,7 @@
 <body>
 <header>
     <div class="cabinetGreeting">
-        <p>Hello, ${name}</p>
+        <p>Hello, <c:out value="${requestScope.get('user').getLogin()}"/></p>
     </div>
     <div class="pull-right">
 

@@ -11,8 +11,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
 
-public class ClientMySQLDAO implements UserDAO {
-    private Connection connection;
+public class ClientMySQLDAO extends UserDAO {
+    private String clientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
 
     public ClientMySQLDAO() throws NamingException, SQLException {
         InitialContext initialContext = new InitialContext();
@@ -20,26 +20,14 @@ public class ClientMySQLDAO implements UserDAO {
 
         DataSource ds = (DataSource) context.lookup("jdbc/billing");
         connection = ds.getConnection();
+        query = clientQuery;
     }
     @Override
     public void storeUser(User user) {
-        final String storeNewClientQuery = "INSERT INTO clients (username, password, email, name, status, id_tariff)" +
-                " VALUES(" + /*user.getLogin() + */")";
+//        final String storeNewClientQuery = "INSERT INTO clients (username, password, email, name, status, id_tariff)" +
+//                " VALUES(" + /*user.getLogin() + */")";
 
     }
 
-    @Override
-    public User getUser(String login) throws SQLException {
-        User client = null;
-        final String getClientQuery = "SELECT  username, password FROM clients WHERE username = '" + login + "'";
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(getClientQuery);
-
-        if (resultSet.next()) {
-            client = new Client(resultSet.getString(1), resultSet.getString(2));
-        }
-
-        return client;
-    }
 
 }

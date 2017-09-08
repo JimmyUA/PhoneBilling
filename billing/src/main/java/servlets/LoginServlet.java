@@ -1,9 +1,10 @@
 package servlets;
 
 import com.sergey.prykhodko.dao.FactoryType;
-import com.sergey.prykhodko.dao.interfaces.DAOFactory;
-import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.users.User;
+import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.managers.UsersManager;
+import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -13,12 +14,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.stream.Collector;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private static Logger logger = Logger.getLogger(LoginServlet.class);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -26,26 +27,28 @@ public class LoginServlet extends HttpServlet {
         String login = request.getParameter("loginForm:login");
         String password = request.getParameter("loginForm:password");
 
-        DAOFactory factory = DAOFactory.getDAOFactory(FactoryType.MySQL);
-
-        UserDAO userDAO = null;
+        User user = null;
         try {
-            userDAO = factory.getUserDAO();
-        } catch (SQLException | NamingException e ) {
-            e.printStackTrace();
+            user = new UsersManager().getUserFromDB(login, FactoryType.MySQL);
+        } catch (SQLException | NamingException e) {
+            logger.error(e);
+            response.sendRedirect("/login");
         }
-        User client = null;
-        try {
-             client = userDAO.getUser(login);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        if (passwordIsWrong(password, user)){
+            response.sendRedirect("login.jsp"); //todo add flag to show message "wrong password"
+        }else {
+            if (user.getRole() == UserRole.CLIENT) {
+                logger.info(user.getLogin() + " logged in with password: " + user.getPassword());
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("clientCabinet.jsp").forward(request, response);
 
-        if (client != null){
-            response.sendRedirect("clientCabinet.jsp");
-        }
-        else {
-            response.sendRedirect("login.jsp");
+            } else if (user.getRole() == UserRole.ADMIN) {
+                logger.info(user.getLogin() + " logged in with password: " + user.getPassword());
+                request.setAttribute("user", user);
+                request.getRequestDispatcher("adminCabinet.jsp").forward(request, response);
+            } else {
+                response.sendRedirect("register.jsp");
+            }
         }
     }
 
@@ -53,8 +56,12 @@ public class LoginServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
         dispatcher.forward(request, response);
-        
+
+    }
+
+    private boolean passwordIsWrong(String password, User user) {
+        return !password.equals(user.getPassword());
     }
 }

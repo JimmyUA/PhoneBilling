@@ -13,6 +13,12 @@ public class Admin extends User{
 
     }
 
+
+    @Override
+    public UserRole getRole() {
+        return role;
+    }
+
     public void interconnectClient(Client client){}
 
     public void activateServiceForClient(Client client, Service service){}

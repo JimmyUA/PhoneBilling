@@ -14,6 +14,7 @@ public class Client extends User {
     private Set<Service> availableServises;
     private Set<Service> activeServices;
 
+
     public Client(String login, String password) {
         super(login, password);
         role = UserRole.CLIENT;
@@ -23,6 +24,12 @@ public class Client extends User {
 
     public void logIn() {
 
+    }
+
+
+    @Override
+    public UserRole getRole() {
+        return role;
     }
 
     ///////////////////////////////////////////////////////////////////////

@@ -1,10 +1,11 @@
-package com.sergey.prykhodko.users;
+package com.sergey.prykhodko.managers;
 
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import org.apache.log4j.Logger;
-import servlets.LoginServlet;
+import com.sergey.prykhodko.users.User;
+import com.sergey.prykhodko.users.UserRole;
+
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
@@ -16,21 +17,20 @@ public class UsersManager {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);
         UserDAO userDAO = factory.getUserDAO(UserRole.CLIENT);
         User user = userDAO.getUser(login);
-        if (userIsFound(user)){
+        if (isUserFound(user)) {
             user.setRole(UserRole.CLIENT);
             return user;
-        }
-        else {
+        } else {
             userDAO = factory.getUserDAO(UserRole.ADMIN);
             user = userDAO.getUser(login);
-            if (userIsFound(user)) {
+            if (isUserFound(user)) {
                 user.setRole(UserRole.ADMIN);
             }
             return user;
         }
     }
 
-    private boolean userIsFound(User user) {
+    private boolean isUserFound(User user) {
         return user != null;
     }
 }

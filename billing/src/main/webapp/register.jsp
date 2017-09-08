@@ -21,7 +21,7 @@
                     <form class="signup-form" method="post" action="<c:url value="/registration"/>" >
                         <div>
                             <div class="field" data-fieldname="name">
-                                <input id="full-name" autocomplete="off" value="" maxlength="50"
+                                <input id="full-name" name="full-name" autocomplete="off" value="" maxlength="50"
                                        placeholder="Full name" class="" title="Should contain 2 words"
                                        pattern="[A-Za-z\d]* [A-Za-z\d]*">
                             </div>
@@ -31,12 +31,12 @@
                                         title="Should be longer than 3 letters">
                             </div>
                             <div class="field" data-fieldname="e-mail">
-                                <input id="e-mail" autocomplete="off" value="" maxlength="50"
+                                <input id="e-mail" name="e-mail" autocomplete="off" value="" maxlength="50"
                                        placeholder="Enter your e-mail" class="" type="email" required
                                        title="Enter your e-mail address">
                             </div>
                             <div class="field" data-fieldname="e-mail">
-                                <input id="password" autocomplete="off" value="" maxlength="50"
+                                <input id="password" name="password" autocomplete="off" value="" maxlength="50"
                                        placeholder="Chose password" class="" type="password" required
                                        title="Password should have minimum 8 letters and minimum one number"
                                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
