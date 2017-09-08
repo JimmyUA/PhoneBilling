@@ -3,21 +3,41 @@ package com.sergey.prykhodko.users;
 import com.sergey.prykhodko.services.Service;
 import com.sergey.prykhodko.tariffplans.TariffPlan;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
  * Created by Sergey on 25.07.2017.
  */
 public class Client extends User {
-    private String postAdress;
+    private String fullName;
     private boolean isActive;
     private Set<Service> availableServises;
     private Set<Service> activeServices;
 
 
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
     public Client(String login, String password) {
         super(login, password);
         role = UserRole.CLIENT;
+
+        availableServises = new HashSet<>();
+        activeServices = new HashSet<>();
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public boolean isActive() {
+        return isActive;
     }
 
     public void makeRequestToInterconnect(){}

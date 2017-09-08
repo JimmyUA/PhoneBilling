@@ -1,16 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sergey
-  Date: 08.09.2017
-  Time: 11:16
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.sergey.prykhodko.users.Client" %>
+<%@ page contentType="text/html;charset=UTF-8; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>Welcome</title>
 </head>
 <body>
-$END$
+    <h1><c:out value="${requestScope.get('user').getFullName()}"/>, welcome in our billing</h1>
+    <p><a href="clientCabinet.jsp">Enter personal cabinet</a></p>
 </body>
 </html>

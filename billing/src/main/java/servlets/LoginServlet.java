@@ -29,7 +29,7 @@ public class LoginServlet extends HttpServlet {
 
         User user = null;
         try {
-            user = new UsersManager().getUserFromDB(login, FactoryType.MySQL);
+            user = new UsersManager().getUserByLogin(login, FactoryType.MySQL);
         } catch (SQLException | NamingException e) {
             logger.error(e);
             response.sendRedirect("/login");

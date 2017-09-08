@@ -3,7 +3,6 @@ package com.sergey.prykhodko.dao.interfaces;
 import com.sergey.prykhodko.users.Client;
 import com.sergey.prykhodko.users.User;
 
-import javax.naming.NamingException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,15 +11,16 @@ import java.util.Formatter;
 
 public abstract class UserDAO implements DAO {
     protected Connection connection;
-    protected String query;
+    protected String addQuery;
 
-    public void storeUser(User user){}
+    public abstract void addUser(User user) throws SQLException;
+
 
     public User getUser(String login) throws SQLException{
         User user = null;
         Statement statement = connection.createStatement();
-        query = addValue(query, login);
-        ResultSet resultSet = statement.executeQuery(query);
+        addQuery = addValue(addQuery, login);
+        ResultSet resultSet = statement.executeQuery(addQuery);
 
         if (resultSet.next()) {
             user = new Client(resultSet.getString(1), resultSet.getString(2));

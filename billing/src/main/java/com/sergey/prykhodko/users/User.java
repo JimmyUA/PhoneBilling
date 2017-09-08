@@ -16,6 +16,10 @@ public abstract class User {
 
     public abstract void logIn();
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public void setRole(UserRole role){
         this.role = role;
     }
@@ -28,5 +32,9 @@ public abstract class User {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

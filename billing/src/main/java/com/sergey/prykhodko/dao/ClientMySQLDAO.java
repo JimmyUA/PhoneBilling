@@ -12,22 +12,35 @@ import javax.sql.DataSource;
 import java.sql.*;
 
 public class ClientMySQLDAO extends UserDAO {
-    private String clientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
+    private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
 
     public ClientMySQLDAO() throws NamingException, SQLException {
         InitialContext initialContext = new InitialContext();
         Context context = (Context) initialContext.lookup("java:comp/env");
 
+
         DataSource ds = (DataSource) context.lookup("jdbc/billing");
         connection = ds.getConnection();
-        query = clientQuery;
+        addQuery = getClientQuery;
     }
     @Override
-    public void storeUser(User user) {
-//        final String storeNewClientQuery = "INSERT INTO clients (username, password, email, name, status, id_tariff)" +
-//                " VALUES(" + /*user.getLogin() + */")";
+    public void addUser(User user) throws SQLException {
+        Client client = (Client) user;
+        final String addClientQuery = "INSERT INTO clients (login, password, email, name, status, id_tariff)" +
+                " VALUES('" + client.getLogin() + "', '" + client.getPassword() + "', '" + client.getEmail() +
+                 "', '" + client.getFullName() + "', " + intStatus(client.isActive()) + ", 1)";
 
+        Statement statement = connection.createStatement();
+        statement.execute(addClientQuery);
     }
 
 
+    private int intStatus(boolean status){
+        if (status){
+            return 0;
+        }
+        else {
+            return 1;
+        }
+    }
 }

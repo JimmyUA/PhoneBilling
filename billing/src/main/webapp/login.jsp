@@ -67,9 +67,9 @@
         <%--{--%>
             <%--throw new SQLException("Error establishing connection!");--%>
         <%--}--%>
-        <%--String query = "SELECT * FROM clients";--%>
+        <%--String addQuery = "SELECT * FROM clients";--%>
 
-        <%--PreparedStatement statement = connection.prepareStatement(query);--%>
+        <%--PreparedStatement statement = connection.prepareStatement(addQuery);--%>
         <%--ResultSet rs = statement.executeQuery();--%>
 
     <%--%>--%>
