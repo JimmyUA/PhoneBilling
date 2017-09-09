@@ -10,6 +10,10 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class ClientMySQLDAO extends UserDAO {
     private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
@@ -21,6 +25,7 @@ public class ClientMySQLDAO extends UserDAO {
 
         DataSource ds = (DataSource) context.lookup("jdbc/billing");
         connection = ds.getConnection();
+        statement = connection.createStatement();
         addQuery = getClientQuery;
     }
     @Override
@@ -30,10 +35,20 @@ public class ClientMySQLDAO extends UserDAO {
                 " VALUES('" + client.getLogin() + "', '" + client.getPassword() + "', '" + client.getEmail() +
                  "', '" + client.getFullName() + "', " + intStatus(client.isActive()) + ", 1)";
 
-        Statement statement = connection.createStatement();
         statement.execute(addClientQuery);
     }
 
+    @Override
+    public Set<String> getLogins() throws SQLException {
+        Set<String> logins = new HashSet<>();
+        final String loginsQuery = "SELECT login FROM clients";
+
+        ResultSet result = statement.executeQuery(loginsQuery);
+        while (result.next()){
+            logins.add(result.getString(1));
+        }
+        return logins;
+    }
 
     private int intStatus(boolean status){
         if (status){

@@ -33,15 +33,16 @@
                             <div class="field" data-fieldname="e-mail">
                                 <input id="e-mail" name="e-mail" autocomplete="off" value="" maxlength="50"
                                        placeholder="Enter your e-mail" class="" type="email" required
-                                       title="Enter your e-mail address">
+                                       title="Enter your e-mail address"
+                                       pattern="^([\\w-.]+){1,64}@([\\w&&[^_]]+){2,255}.[a-z]{2,}$">
                             </div>
-                            <div class="field" data-fieldname="e-mail">
+                            <div class="field" data-fieldname="password">
                                 <input id="password" name="password" autocomplete="off" value="" maxlength="50"
                                        placeholder="Chose password" class="" type="password" required
                                        title="Password should have minimum 8 letters and minimum one number"
                                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
                             </div>
-                            <div class="field" data-fieldname="e-mail">
+                            <div class="field" data-fieldname="confirmPassword">
                                 <input id="confirmPassword" autocomplete="off" value="" maxlength="50"
                                        placeholder="Confirm password" class="" type="password" required
                                         title="Passwords should be equals" onchange="validate()">

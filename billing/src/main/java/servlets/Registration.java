@@ -4,6 +4,7 @@ package servlets;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.managers.ClientValidator;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.users.Client;
 import com.sergey.prykhodko.users.ClientBuilder;
@@ -41,16 +42,20 @@ public class Registration extends HttpServlet {
                 .setFullName(fullName)
                 .build();
 
-        //todo add user validator action
-        try {
-            new UsersManager().addUserToDB(client, FactoryType.MySQL);
-            logger.info(client.getLogin() + " is registered as a client");
-            request.setAttribute("user", client);
-            request.getRequestDispatcher("welcomeNewClient.jsp").forward(request, response);
-        } catch (SQLException | NamingException e) {
-            logger.error(e);
+        if (new ClientValidator().validate(client)) {
+            try {
+                new UsersManager().addUserToDB(client, FactoryType.MySQL);
+                logger.info(client.getLogin() + " is registered as a client");
+                request.setAttribute("user", client);
+                request.getRequestDispatcher("welcomeNewClient.jsp").forward(request, response);
+            } catch (SQLException | NamingException e) {
+                logger.error(e);
+            }
         }
-
+        else {
+            logger.error("Client with e-mail: " + client.getEmail() + " is not registered");
+            response.sendRedirect("error.jsp");
+        }
     }
 
     @Override

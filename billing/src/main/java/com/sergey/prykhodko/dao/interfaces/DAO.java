@@ -1,7 +1,8 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-import com.sergey.prykhodko.users.User;
+import java.sql.SQLException;
+import java.util.Set;
 
 public interface DAO {
-
+    Set<String> getLogins() throws SQLException;
 }

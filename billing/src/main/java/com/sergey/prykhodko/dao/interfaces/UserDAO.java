@@ -11,6 +11,7 @@ import java.util.Formatter;
 
 public abstract class UserDAO implements DAO {
     protected Connection connection;
+    protected Statement statement;
     protected String addQuery;
 
     public abstract void addUser(User user) throws SQLException;
@@ -18,7 +19,7 @@ public abstract class UserDAO implements DAO {
 
     public User getUser(String login) throws SQLException{
         User user = null;
-        Statement statement = connection.createStatement();
+        statement = connection.createStatement();
         addQuery = addValue(addQuery, login);
         ResultSet resultSet = statement.executeQuery(addQuery);
 

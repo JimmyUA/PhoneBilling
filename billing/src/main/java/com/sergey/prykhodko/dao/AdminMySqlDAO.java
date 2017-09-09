@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.Set;
 
 public class AdminMySqlDAO extends UserDAO {
     private String addAdminQuery = "SELECT  login, password FROM admins WHERE login = '%s'";
@@ -26,5 +27,10 @@ public class AdminMySqlDAO extends UserDAO {
     @Override
     public void addUser(User user) throws SQLException {
 
+    }
+
+    @Override
+    public Set<String> getLogins() throws SQLException {
+        return null;
     }
 }

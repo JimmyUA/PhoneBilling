@@ -12,5 +12,6 @@
 </head>
 <body>
     <h1>Hello Admin!</h1>
+<a href="admin/getClientsList">Clients</a>
 </body>
 </html>
