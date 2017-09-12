@@ -8,11 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class AdministratorFilter implements Filter {
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+public class AdministratorFilter extends BaseFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -28,8 +24,4 @@ public class AdministratorFilter implements Filter {
             filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

@@ -5,12 +5,9 @@ import org.apache.log4j.Logger;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class AuthFilter implements Filter {
+public class AuthFilter extends BaseFilter {
     private static Logger logger = Logger.getLogger(AuthFilter.class);
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
 
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -23,8 +20,4 @@ public class AuthFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

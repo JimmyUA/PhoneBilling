@@ -23,7 +23,10 @@
             <el-ignored>true</el-ignored>
         </jsp-property-group>
     </jsp-config>
-
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/error.jsp</location>
+    </error-page>
     <servlet>
         <servlet-name>login</servlet-name>
         <servlet-class>servlets.LoginServlet</servlet-class>
@@ -40,6 +43,22 @@
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>clientsList</servlet-name>
+        <servlet-class>servlets.admin.ClientsList</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>clientsList</servlet-name>
+        <url-pattern>/clientsList</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>activate</servlet-name>
+        <servlet-class>servlets.admin.UserStatusChanging</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>activate</servlet-name>
+        <url-pattern>/activate</url-pattern>
     </servlet-mapping>
     <servlet>
         <description>

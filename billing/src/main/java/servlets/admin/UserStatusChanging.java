@@ -1,15 +1,25 @@
 package servlets.admin;
 
 
+import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.users.Client;
+import org.apache.log4j.Logger;
+import servlets.LoginServlet;
+
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 @WebServlet("/activate")
-public class UserActivation extends HttpServlet{
+public class UserStatusChanging extends HttpServlet{
+    private static Logger logger = Logger.getLogger(LoginServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -18,6 +28,13 @@ public class UserActivation extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        response.getWriter().println(Integer.parseInt(request.getParameter("clientID")));
+        int id = Integer.parseInt(request.getParameter("clientID"));
+        Client client = null;
+        try {
+            client = (Client) new UsersManager().getUserByID(id, FactoryType.MySQL);
+        } catch (SQLException | NamingException e) {
+            logger.error(e);
+        }
+        response.getWriter().println(client.getFullName());
     }
 }

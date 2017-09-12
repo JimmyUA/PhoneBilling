@@ -5,11 +5,8 @@ import com.sergey.prykhodko.users.User;
 import javax.servlet.*;
 import java.io.IOException;
 
-public class LoginFilter implements Filter {
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+public class LoginFilter extends BaseFilter {
 
-    }
 
     @Override
     public void doFilter(ServletRequest servletRequest,
@@ -21,8 +18,4 @@ public class LoginFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-
-    }
 }

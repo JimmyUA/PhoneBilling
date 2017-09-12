@@ -5,6 +5,7 @@ import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.managers.ClientValidator;
+import com.sergey.prykhodko.managers.PasswordEncoder;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.users.Client;
 import com.sergey.prykhodko.users.ClientBuilder;
@@ -33,6 +34,7 @@ public class Registration extends HttpServlet {
         String login = request.getParameter("login");
         String email = request.getParameter("e-mail");
         String password = request.getParameter("password");
+        password = PasswordEncoder.encodePassword(password);
 
         Client client = new ClientBuilder()
                 .setLogin(login)

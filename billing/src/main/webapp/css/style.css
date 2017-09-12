@@ -198,3 +198,13 @@ input{
     margin: 5% auto;
     padding: 5px 5px 0 0;
 }
+
+.table{
+    border: 1px solid;
+    overflow: hidden;
+    background: #f3f3e9;
+    border-color: #c6cdb6 #b9b998;
+    padding: 3px 5px;
+    color: #000;
+    border-collapse: collapse;
+}

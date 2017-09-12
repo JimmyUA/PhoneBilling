@@ -1,11 +1,17 @@
 package com.sergey.prykhodko.users;
 
 public class ClientBuilder {
+    private int id;
     private String login;
     private String password;
     private String email;
     private String fullName;
     private boolean isActive;
+
+    public ClientBuilder setId(int id) {
+        this.id = id;
+        return this;
+    }
 
     public ClientBuilder setLogin(String login) {
         this.login = login;
@@ -34,6 +40,7 @@ public class ClientBuilder {
 
     public Client build(){
         Client client = new Client(login, password);
+        client.setId(id);
         client.setEmail(email);
         client.setFullName(fullName);
         client.setActive(isActive);

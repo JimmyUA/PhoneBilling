@@ -2,12 +2,14 @@ package com.sergey.prykhodko.dao;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.users.User;
+import com.sergey.prykhodko.users.UserRole;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Set;
 
 public class AdminMySqlDAO extends UserDAO {
@@ -27,6 +29,16 @@ public class AdminMySqlDAO extends UserDAO {
     @Override
     public void addUser(User user) throws SQLException {
 
+    }
+
+    @Override
+    public User getUserByID(int id) throws SQLException {
+        return null; //TODO implement if needed
+    }
+
+    @Override
+    public List<? extends User> getAllUsers(UserRole role) throws SQLException {
+        return null;
     }
 
     @Override

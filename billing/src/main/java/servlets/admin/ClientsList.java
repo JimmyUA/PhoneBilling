@@ -1,17 +1,37 @@
-package servlets;
+package servlets.admin;
 
+import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.users.Client;
+import org.apache.log4j.Logger;
+import servlets.LoginServlet;
+
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.Collections;
+import java.util.List;
 
 @WebServlet("/clientsList")
 public class ClientsList extends HttpServlet{
+
+    private static Logger logger = Logger.getLogger(LoginServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response);
-        response.getWriter().println("<h1>List of Clients</h1>");
+        List<Client> clients = Collections.EMPTY_LIST;
+        try {
+           clients = new UsersManager().getAllClients(FactoryType.MySQL);
+        } catch (SQLException | NamingException e) {
+            logger.error(e);
+            response.sendRedirect("error.jsp");
+        }
+        request.getSession().setAttribute("clients", clients);
+        request.getRequestDispatcher("clientsList.jsp").forward(request, response);
     }
 }

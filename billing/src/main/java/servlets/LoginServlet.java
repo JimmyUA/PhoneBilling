@@ -1,6 +1,7 @@
 package servlets;
 
 import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.managers.PasswordEncoder;
 import com.sergey.prykhodko.users.User;
 import com.sergey.prykhodko.users.UserRole;
 import com.sergey.prykhodko.managers.UsersManager;
@@ -38,7 +39,7 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect("login.jsp"); //todo add flag to show message "wrong password"
         }else {
             if (user.getRole() == UserRole.CLIENT) {
-                logger.info(user.getLogin() + " logged in with password: " + user.getPassword());
+                logger.info(user.getLogin() + " logged in");
                 request.setAttribute("user", user);
                 request.getRequestDispatcher("clientCabinet.jsp").forward(request, response);
 
@@ -62,6 +63,7 @@ public class LoginServlet extends HttpServlet {
     }
 
     private boolean passwordIsWrong(String password, User user) {
+        password = PasswordEncoder.encodePassword(password);
         return !password.equals(user.getPassword());
     }
 }

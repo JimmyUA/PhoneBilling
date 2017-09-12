@@ -4,6 +4,7 @@ package com.sergey.prykhodko.users;
  *
  */
 public abstract class User {
+    protected int id;
     protected String login;
     protected String password;
     protected String email;
@@ -15,6 +16,10 @@ public abstract class User {
     }
 
     public abstract void logIn();
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setLogin(String login) {
         this.login = login;
@@ -30,6 +35,10 @@ public abstract class User {
 
     public void setRole(UserRole role){
         this.role = role;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLogin() {
