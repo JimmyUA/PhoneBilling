@@ -85,7 +85,9 @@ public class UsersManager {
         return clients;
     }
 
-    public void changeStatus(){}
+    public void changeStatus(){
+        //TODO implement
+    }
 
     private UserDAO getUserDAO(UserRole role, FactoryType factoryType) throws SQLException, NamingException {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);
