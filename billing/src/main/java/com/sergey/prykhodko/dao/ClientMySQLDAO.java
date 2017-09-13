@@ -47,6 +47,14 @@ public class ClientMySQLDAO extends UserDAO {
     }
 
     @Override
+    public void updateUser(Client client) throws SQLException {
+        final String query = "UPDATE clients SET password='" + client.getPassword() + "', email='"
+                + client.getEmail() + "', status=" + intStatus(client.isActive()) + " WHERE id_client=" + client.getId();
+
+        statement.execute(query);
+    }
+
+    @Override
     public List<Client> getAllUsers(UserRole role) throws SQLException {
         List<Client> clients = new ArrayList<>();
         final String getAllClientsQuery = "SELECT * FROM clients";

@@ -54,7 +54,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>activate</servlet-name>
-        <servlet-class>servlets.admin.UserStatusChanging</servlet-class>
+        <servlet-class>servlets.admin.ClientStatusChanging</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>activate</servlet-name>

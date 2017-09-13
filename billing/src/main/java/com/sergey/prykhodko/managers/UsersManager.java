@@ -4,6 +4,7 @@ import com.sergey.prykhodko.dao.ClientMySQLDAO;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.users.Admin;
 import com.sergey.prykhodko.users.Client;
 import com.sergey.prykhodko.users.User;
 import com.sergey.prykhodko.users.UserRole;
@@ -13,7 +14,6 @@ import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.sergey.prykhodko.dao.FactoryType.*;
 import static com.sergey.prykhodko.users.UserRole.*;
 
 public class UsersManager {
@@ -94,4 +94,21 @@ public class UsersManager {
         return factory.getUserDAO(role);
     }
 
+    public void updateUser(User user, FactoryType factoryType) throws SQLException, NamingException {
+        if (user.getRole() == CLIENT){
+            updateClient((Client) user, factoryType);
+        }
+        else if(user.getRole() == ADMIN){
+            updateAdmin((Admin) user, factoryType);
+        }
+    }
+
+    private void updateClient(Client client, FactoryType factoryType) throws SQLException, NamingException {
+        UserDAO userDAO = getUserDAO(CLIENT, factoryType);
+        userDAO.updateUser(client);
+    }
+
+    private void updateAdmin(Admin admin, FactoryType factoryType) {
+        throw new UnsupportedOperationException();
+    }
 }

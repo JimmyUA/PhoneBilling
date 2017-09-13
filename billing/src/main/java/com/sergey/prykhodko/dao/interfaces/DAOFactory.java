@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public interface DAOFactory {
     UserDAO getUserDAO(UserRole role) throws SQLException, NamingException;
 
-    public static DAOFactory getDAOFactory(FactoryType factoryType){
+    static DAOFactory getDAOFactory(FactoryType factoryType){
         switch (factoryType){
             case MySQL:
                 return new MySQLDAOFactory();
