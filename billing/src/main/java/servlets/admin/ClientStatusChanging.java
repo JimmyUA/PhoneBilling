@@ -2,6 +2,7 @@ package servlets.admin;
 
 
 import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.managers.UserService;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.users.Client;
 import org.apache.log4j.Logger;
@@ -36,5 +37,6 @@ public class UserStatusChanging extends HttpServlet{
             logger.error(e);
         }
         response.getWriter().println(client.getFullName());
+
     }
 }
