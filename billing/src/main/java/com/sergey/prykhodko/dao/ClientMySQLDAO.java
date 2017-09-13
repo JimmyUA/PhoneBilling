@@ -19,8 +19,9 @@ import static com.sergey.prykhodko.users.UserRole.CLIENT;
 
 public class ClientMySQLDAO extends UserDAO {
     private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
+    private static volatile ClientMySQLDAO instance;
 
-    public ClientMySQLDAO() throws NamingException, SQLException {
+    private ClientMySQLDAO() throws NamingException, SQLException {
         InitialContext initialContext = new InitialContext();
         Context context = (Context) initialContext.lookup("java:comp/env");
 
@@ -29,6 +30,17 @@ public class ClientMySQLDAO extends UserDAO {
         connection = ds.getConnection();
         statement = connection.createStatement();
         addQuery = getClientQuery;
+    }
+
+    public static ClientMySQLDAO getInstance() throws SQLException, NamingException {
+        if (instance == null){
+            synchronized (ClientMySQLDAO.class){
+                if (instance == null){
+                    instance = new ClientMySQLDAO();
+                }
+            }
+        }
+        return instance;
     }
 
     @Override
