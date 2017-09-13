@@ -2,7 +2,9 @@ package servlets.admin;
 
 
 import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.managers.UserService;
 import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.managers.commands.ChangeClientStatus;
 import com.sergey.prykhodko.users.Client;
 import org.apache.log4j.Logger;
 import servlets.LoginServlet;
@@ -17,7 +19,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @WebServlet("/activate")
-public class UserStatusChanging extends HttpServlet{
+public class ClientStatusChanging extends HttpServlet{
     private static Logger logger = Logger.getLogger(LoginServlet.class);
 
     @Override
@@ -35,6 +37,12 @@ public class UserStatusChanging extends HttpServlet{
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
-        response.getWriter().println(client.getFullName());
+        try {
+            UserService.executeCommand(new ChangeClientStatus(client));
+        } catch (SQLException | NamingException e) {
+            logger.error(e);
+        }
+        response.sendRedirect("/clientsList");
+
     }
 }

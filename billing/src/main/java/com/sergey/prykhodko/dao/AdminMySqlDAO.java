@@ -1,6 +1,7 @@
 package com.sergey.prykhodko.dao;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.users.Client;
 import com.sergey.prykhodko.users.User;
 import com.sergey.prykhodko.users.UserRole;
 
@@ -13,6 +14,11 @@ import java.util.List;
 import java.util.Set;
 
 public class AdminMySqlDAO extends UserDAO {
+    @Override
+    public void updateUser(Client client) {
+
+    }
+
     private String addAdminQuery = "SELECT  login, password FROM admins WHERE login = '%s'";
 
 

@@ -34,6 +34,8 @@ public abstract class UserDAO implements DAO {
 
     public abstract User getUserByID(int id) throws SQLException;
 
+    public abstract void updateUser(Client client) throws SQLException;
+
     private String addValue(String query, String entry) {
         Formatter formatter = new Formatter();
         formatter.format(query, entry);
@@ -41,4 +43,5 @@ public abstract class UserDAO implements DAO {
     }
 
     public abstract List<? extends User> getAllUsers(UserRole role) throws SQLException;
+
 }
