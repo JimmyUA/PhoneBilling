@@ -9,9 +9,9 @@ import static org.junit.Assert.*;
 
 public class UsersManagerTest {
 
-    @Test
-    public void getClient() throws Exception {
-        User user = new UsersManager().getUserByLogin("client", FactoryType.MySQL);
-        assertEquals(UserRole.CLIENT, user.getRole());
-    }
+//    @Test
+//    public void getClient() throws Exception {
+//        User user = new UsersManager().getUserByLogin("client", FactoryType.MySQL);
+//        assertEquals(UserRole.CLIENT, user.getRole());
+//    }
 }
