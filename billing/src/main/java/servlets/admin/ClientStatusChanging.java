@@ -7,7 +7,6 @@ import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.managers.commands.ChangeClientStatus;
 import com.sergey.prykhodko.users.Client;
 import org.apache.log4j.Logger;
-import servlets.LoginServlet;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;
@@ -18,9 +17,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+
 @WebServlet("/activate")
 public class ClientStatusChanging extends HttpServlet{
-    private static Logger logger = Logger.getLogger(LoginServlet.class);
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

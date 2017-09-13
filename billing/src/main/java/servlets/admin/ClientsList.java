@@ -17,10 +17,12 @@ import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+
 @WebServlet("/clientsList")
 public class ClientsList extends HttpServlet{
 
-    private static Logger logger = Logger.getLogger(LoginServlet.class);
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

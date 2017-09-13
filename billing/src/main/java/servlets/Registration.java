@@ -21,11 +21,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+
 
 @WebServlet("/registration")
 public class Registration extends HttpServlet {
 
-    private static Logger logger = Logger.getLogger(LoginServlet.class);
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

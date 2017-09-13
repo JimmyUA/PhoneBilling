@@ -1,5 +1,7 @@
 package servlets.locale;
 
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,8 +13,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Locale;
 
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+
 @WebServlet("/locale")
 public class LocaleHandler extends HttpServlet {
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     public LocaleHandler() {
         super();
