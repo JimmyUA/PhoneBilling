@@ -139,5 +139,27 @@ public class ClientMySQLDAO extends UserDAO {
         }
     }
 
+    @Override
+    public List<Client> getAllUsersPortion(int portion, int startFrom) throws SQLException {
+        int firstRow = startFrom + 1;
+        List<Client> clients = new ArrayList<>();
+        final String getAllClientsQuery = "SELECT * FROM clients ORDER BY login LIMIT "
+                                            + firstRow + ", " + (startFrom + portion);
+        ResultSet resultSet = statement.executeQuery(getAllClientsQuery);
+            Client client;
+            while (resultSet.next()){
+                client = buildClientFromDB(resultSet);
+                clients.add(client);
+            }
+            return clients;
+    }
 
+    @Override
+    public int getTotalClientsAmount() throws SQLException {
+        final String getTotalClientsAmountQuery = "SELECT COUNT(*) FROM clients";
+        ResultSet resultSet = statement.executeQuery(getTotalClientsAmountQuery);
+        resultSet.next();
+        int clientsAmount = Integer.parseInt(resultSet.getString(1));
+        return clientsAmount;
+    }
 }

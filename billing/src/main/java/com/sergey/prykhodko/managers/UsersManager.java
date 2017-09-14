@@ -111,4 +111,18 @@ public class UsersManager {
     private void updateAdmin(Admin admin, FactoryType factoryType) {
         throw new UnsupportedOperationException();
     }
+
+    public List<Client> getAllClientsPortion(FactoryType factoryType, int portion, int startFrom) throws SQLException, NamingException {
+        List<Client> clients = null;
+        UserDAO userDAO = getUserDAO(CLIENT, factoryType);
+        clients = userDAO.getAllUsersPortion(portion, startFrom);
+
+        return clients;
+    }
+
+    public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
+        UserDAO userDAO = getUserDAO(CLIENT, mySQL);
+        int totalClientsAmount = userDAO.getTotalClientsAmount();
+        return totalClientsAmount;
+    }
 }

@@ -48,7 +48,17 @@ public class AdminMySqlDAO extends UserDAO {
     }
 
     @Override
+    public List<Client> getAllUsersPortion(int portion, int startFrom) throws SQLException {
+        return null;
+    }
+
+    @Override
     public Set<String> getLogins() throws SQLException {
         return null;
+    }
+
+    @Override
+    public int getTotalClientsAmount() {
+        return 0;
     }
 }

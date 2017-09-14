@@ -44,4 +44,7 @@ public abstract class UserDAO implements DAO {
 
     public abstract List<? extends User> getAllUsers(UserRole role) throws SQLException;
 
+    public abstract List<Client> getAllUsersPortion(int portion, int startFrom) throws SQLException;
+
+    public abstract int getTotalClientsAmount() throws SQLException;
 }

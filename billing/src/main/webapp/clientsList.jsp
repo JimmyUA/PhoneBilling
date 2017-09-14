@@ -11,6 +11,7 @@
 </head>
 <body>
 
+
     <h1>Clients</h1>
     <c:forEach var="client" items="${clients}">
     <tr id="clientsTable" class="table">
@@ -29,6 +30,23 @@
         </td>
     </tr>
         <br>
-    </c:forEach>
+        </c:forEach>
+
+    <div>
+        <form name="pagination" action="/clientsList" method="get">
+
+            <c:if test="${sessionScope.get('pageNumber') > 1}">
+                <input name="previous" type="submit" value="PREVIOUS" class="ui-button  submitBtn"/>
+            </c:if>
+
+            <p>${sessionScope.get("pageNumber").toString()}</p>
+
+            <c:if test="${sessionScope.get('lastPage') != sessionScope.get('pageNumber')}">
+                <input name="next" type="submit" value="NEXT" class="ui-button  submitBtn"/>
+            </c:if>
+        </form>
+    </div>
+
+
 </body>
 </html>
