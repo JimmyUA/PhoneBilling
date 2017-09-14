@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.filters;
 
-import com.sergey.prykhodko.users.User;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.User;
+import com.sergey.prykhodko.model.users.UserRole;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;

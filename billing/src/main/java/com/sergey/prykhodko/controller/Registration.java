@@ -1,15 +1,12 @@
-package servlets;
+package com.sergey.prykhodko.controller;
 
 
 import com.sergey.prykhodko.dao.FactoryType;
-import com.sergey.prykhodko.dao.interfaces.DAOFactory;
-import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.managers.ClientValidator;
 import com.sergey.prykhodko.managers.PasswordEncoder;
 import com.sergey.prykhodko.managers.UsersManager;
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.ClientBuilder;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.ClientBuilder;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;

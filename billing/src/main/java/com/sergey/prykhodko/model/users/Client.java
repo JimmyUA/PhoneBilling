@@ -1,7 +1,7 @@
-package com.sergey.prykhodko.users;
+package com.sergey.prykhodko.model.users;
 
-import com.sergey.prykhodko.services.Service;
-import com.sergey.prykhodko.tariffplans.TariffPlan;
+import com.sergey.prykhodko.model.services.Service;
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 
 import java.util.HashSet;
 import java.util.Set;

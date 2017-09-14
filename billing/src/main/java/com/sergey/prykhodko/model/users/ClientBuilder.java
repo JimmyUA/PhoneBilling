@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.users;
+package com.sergey.prykhodko.model.users;
 
 public class ClientBuilder {
     private int id;

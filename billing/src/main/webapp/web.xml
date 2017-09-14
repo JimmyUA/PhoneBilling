@@ -29,7 +29,7 @@
     </error-page>
     <servlet>
         <servlet-name>login</servlet-name>
-        <servlet-class>servlets.LoginServlet</servlet-class>
+        <servlet-class>com.sergey.prykhodko.controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>login</servlet-name>
@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>registration</servlet-name>
-        <servlet-class>servlets.Registration</servlet-class>
+        <servlet-class>com.sergey.prykhodko.controller.Registration</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>registration</servlet-name>
@@ -46,7 +46,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>clientsList</servlet-name>
-        <servlet-class>servlets.admin.ClientsList</servlet-class>
+        <servlet-class>com.sergey.prykhodko.controller.admin.ClientsList</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>clientsList</servlet-name>
@@ -54,7 +54,7 @@
     </servlet-mapping>
     <servlet>
         <servlet-name>activate</servlet-name>
-        <servlet-class>servlets.admin.ClientStatusChanging</servlet-class>
+        <servlet-class>com.sergey.prykhodko.controller.admin.ClientStatusChanging</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>activate</servlet-name>
@@ -65,7 +65,7 @@
         </description>
         <display-name>Locale</display-name>
         <servlet-name>Locale</servlet-name>
-        <servlet-class>servlets.locale.LocaleHandler</servlet-class>
+        <servlet-class>com.sergey.prykhodko.controller.locale.LocaleHandler</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Locale</servlet-name>

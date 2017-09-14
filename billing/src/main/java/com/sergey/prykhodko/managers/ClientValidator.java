@@ -3,13 +3,12 @@ package com.sergey.prykhodko.managers;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

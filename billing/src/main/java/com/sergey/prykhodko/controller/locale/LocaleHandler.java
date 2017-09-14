@@ -1,4 +1,4 @@
-package servlets.locale;
+package com.sergey.prykhodko.controller.locale;
 
 import org.apache.log4j.Logger;
 

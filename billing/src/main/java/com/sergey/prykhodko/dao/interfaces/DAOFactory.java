@@ -2,7 +2,7 @@ package com.sergey.prykhodko.dao.interfaces;
 
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.factories.MySQLDAOFactory;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.UserRole;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;

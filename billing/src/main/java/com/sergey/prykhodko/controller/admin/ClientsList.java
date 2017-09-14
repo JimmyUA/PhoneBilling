@@ -1,10 +1,9 @@
-package servlets.admin;
+package com.sergey.prykhodko.controller.admin;
 
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.managers.UsersManager;
-import com.sergey.prykhodko.users.Client;
+import com.sergey.prykhodko.model.users.Client;
 import org.apache.log4j.Logger;
-import servlets.LoginServlet;
 
 import javax.naming.NamingException;
 import javax.servlet.ServletException;

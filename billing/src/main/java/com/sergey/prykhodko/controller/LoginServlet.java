@@ -1,9 +1,9 @@
-package servlets;
+package com.sergey.prykhodko.controller;
 
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.managers.PasswordEncoder;
-import com.sergey.prykhodko.users.User;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.User;
+import com.sergey.prykhodko.model.users.UserRole;
 import com.sergey.prykhodko.managers.UsersManager;
 import org.apache.log4j.Logger;
 

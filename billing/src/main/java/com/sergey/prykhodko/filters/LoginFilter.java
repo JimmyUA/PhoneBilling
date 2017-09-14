@@ -1,7 +1,5 @@
 package com.sergey.prykhodko.filters;
 
-import com.sergey.prykhodko.users.User;
-
 import javax.servlet.*;
 import java.io.IOException;
 

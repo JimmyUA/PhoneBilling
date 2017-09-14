@@ -1,11 +1,11 @@
-package servlets.admin;
+package com.sergey.prykhodko.controller.admin;
 
 
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.managers.UserService;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.managers.commands.ChangeClientStatus;
-import com.sergey.prykhodko.users.Client;
+import com.sergey.prykhodko.model.users.Client;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -43,6 +43,8 @@ public class ClientStatusChanging extends HttpServlet{
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
+        logger.info("Status for client with login: " + client.getLogin() + " changed to "
+                + (client.isActive() ? "\"Active\"":"\"Disabled\""));
         response.sendRedirect("/clientsList");
 
     }

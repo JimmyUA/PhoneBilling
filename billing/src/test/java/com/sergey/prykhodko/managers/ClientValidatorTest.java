@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.managers;
 
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.ClientBuilder;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.ClientBuilder;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;

@@ -1,8 +1,8 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.User;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.User;
+import com.sergey.prykhodko.model.users.UserRole;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

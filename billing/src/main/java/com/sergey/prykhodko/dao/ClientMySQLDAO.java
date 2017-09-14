@@ -1,11 +1,11 @@
 package com.sergey.prykhodko.dao;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import com.sergey.prykhodko.tariffplans.TariffPlan;
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.ClientBuilder;
-import com.sergey.prykhodko.users.User;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.ClientBuilder;
+import com.sergey.prykhodko.model.users.User;
+import com.sergey.prykhodko.model.users.UserRole;
 
 
 import javax.naming.Context;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 
-import static com.sergey.prykhodko.users.UserRole.CLIENT;
+import static com.sergey.prykhodko.model.users.UserRole.CLIENT;
 
 public class ClientMySQLDAO extends UserDAO {
     private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";

@@ -1,4 +1,4 @@
-<%@page import="com.sergey.prykhodko.users.Client"%>
+<%@page import="com.sergey.prykhodko.model.users.Client"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.lang.Integer"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>

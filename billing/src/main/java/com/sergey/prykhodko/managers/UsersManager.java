@@ -4,17 +4,17 @@ import com.sergey.prykhodko.dao.ClientMySQLDAO;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import com.sergey.prykhodko.users.Admin;
-import com.sergey.prykhodko.users.Client;
-import com.sergey.prykhodko.users.User;
-import com.sergey.prykhodko.users.UserRole;
+import com.sergey.prykhodko.model.users.Admin;
+import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.User;
+import com.sergey.prykhodko.model.users.UserRole;
 
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.sergey.prykhodko.users.UserRole.*;
+import static com.sergey.prykhodko.model.users.UserRole.*;
 
 public class UsersManager {
 
