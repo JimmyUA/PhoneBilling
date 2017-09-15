@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
-@WebServlet("/login")
+@WebServlet(name = "login", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(getCurrentClassName());

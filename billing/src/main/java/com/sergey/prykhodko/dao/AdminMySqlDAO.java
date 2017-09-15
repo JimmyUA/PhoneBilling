@@ -61,4 +61,6 @@ public class AdminMySqlDAO extends UserDAO {
     public int getTotalClientsAmount() {
         return 0;
     }
+
+
 }

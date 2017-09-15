@@ -27,6 +27,10 @@ public class Game {
         return score;
     }
 
+    public int[] getRolls(){
+        return rolls;
+    }
+
     private int ballsInFrame(int firstInFrame) {
         return rolls[firstInFrame] + rolls[firstInFrame + 1];
     }

@@ -8,6 +8,7 @@ import com.sergey.prykhodko.model.users.Admin;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
+import org.apache.log4j.Logger;
 
 
 import javax.naming.NamingException;
@@ -15,14 +16,16 @@ import java.sql.SQLException;
 import java.util.List;
 
 import static com.sergey.prykhodko.model.users.UserRole.*;
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 public class UsersManager {
-
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     public User getUserByLogin(String login, FactoryType factoryType) throws SQLException, NamingException {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);
         UserDAO userDAO = factory.getUserDAO(CLIENT);
         User user = userDAO.getUserByLogin(login);
+        logger.info(userDAO);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
             return user;
@@ -85,9 +88,6 @@ public class UsersManager {
         return clients;
     }
 
-    public void changeStatus(){
-        //TODO implement
-    }
 
     private UserDAO getUserDAO(UserRole role, FactoryType factoryType) throws SQLException, NamingException {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);

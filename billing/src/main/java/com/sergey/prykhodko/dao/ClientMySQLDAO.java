@@ -141,10 +141,9 @@ public class ClientMySQLDAO extends UserDAO {
 
     @Override
     public List<Client> getAllUsersPortion(int portion, int startFrom) throws SQLException {
-        int firstRow = startFrom + 1;
         List<Client> clients = new ArrayList<>();
         final String getAllClientsQuery = "SELECT * FROM clients ORDER BY login LIMIT "
-                                            + firstRow + ", " + (startFrom + portion);
+                                            + startFrom + ", " + (startFrom + portion - 1);
         ResultSet resultSet = statement.executeQuery(getAllClientsQuery);
             Client client;
             while (resultSet.next()){
