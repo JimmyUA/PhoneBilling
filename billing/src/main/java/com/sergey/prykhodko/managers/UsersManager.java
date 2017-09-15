@@ -28,10 +28,12 @@ public class UsersManager {
         logger.info(userDAO);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
+            userDAO.closeConnection();
             return user;
         } else {
             userDAO = factory.getUserDAO(ADMIN);
             user = userDAO.getUserByLogin(login);
+            userDAO.closeConnection();
             if (isUserFound(user)) {
                 user.setRole(ADMIN);
             }
@@ -44,10 +46,12 @@ public class UsersManager {
         User user = userDAO.getUserByID(id);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
+            userDAO.closeConnection();
             return user;
         } else {
             userDAO = getUserDAO(ADMIN, factoryType);
             user = userDAO.getUserByID(id);
+            userDAO.closeConnection();
             if (isUserFound(user)) {
                 user.setRole(ADMIN);
             }
@@ -78,6 +82,7 @@ public class UsersManager {
         Client client = (Client) user;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
+        userDAO.closeConnection();
     }
 
     public List<Client> getAllClients(FactoryType factoryType) throws SQLException, NamingException {
@@ -85,6 +90,7 @@ public class UsersManager {
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         ClientMySQLDAO clientDAO = (ClientMySQLDAO) userDAO;
         clients = clientDAO.getAllUsers(CLIENT);
+        clientDAO.closeConnection();
         return clients;
     }
 
@@ -106,6 +112,7 @@ public class UsersManager {
     private void updateClient(Client client, FactoryType factoryType) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.updateUser(client);
+        userDAO.closeConnection();
     }
 
     private void updateAdmin(Admin admin, FactoryType factoryType) {
@@ -116,12 +123,14 @@ public class UsersManager {
         List<Client> clients = null;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         clients = userDAO.getAllUsersPortion(portion, startFrom);
+        userDAO.closeConnection();
 
         return clients;
     }
 
     public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, mySQL);
+        userDAO.closeConnection();
         int totalClientsAmount = userDAO.getTotalClientsAmount();
         return totalClientsAmount;
     }

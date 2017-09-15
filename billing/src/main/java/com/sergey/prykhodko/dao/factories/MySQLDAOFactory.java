@@ -15,7 +15,7 @@ public class MySQLDAOFactory implements DAOFactory {
     public UserDAO getUserDAO(UserRole role) throws SQLException, NamingException {
         switch (role) {
             case CLIENT:
-                return ClientMySQLDAO.getInstance();
+                return new ClientMySQLDAO();
             case ADMIN:
                 return new AdminMySqlDAO();
             case GUEST:
