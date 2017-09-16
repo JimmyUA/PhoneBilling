@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
         }else {
             if (user.getRole() == UserRole.CLIENT) {
                 logger.info(user.getLogin() + " logged in");
-                request.setAttribute("user", user);
+                request.getSession().setAttribute("user", user);
                 request.getRequestDispatcher("clientCabinet.jsp").forward(request, response);
 
             } else if (user.getRole() == UserRole.ADMIN) {

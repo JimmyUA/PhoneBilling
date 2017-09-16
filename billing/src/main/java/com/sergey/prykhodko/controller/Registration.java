@@ -58,7 +58,7 @@ public class Registration extends HttpServlet {
         if (new ClientValidator().validate(client)) {
             try {
                 UserService.executeCommand(new RegisterClient(client));
-                request.setAttribute("user", client);
+                request.getSession().setAttribute("user", client);
                 request.getRequestDispatcher("welcomeNewClient.jsp").forward(request, response);
             } catch (SQLException | NamingException e) {
                 logger.error(e);
