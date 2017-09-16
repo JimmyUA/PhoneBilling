@@ -10,7 +10,7 @@
 <body>
 <header>
     <div class="cabinetGreeting">
-        <p>Hello, <c:out value="${requestScope.get('user').getLogin()}"/></p>
+        <p>Hello, <c:out value="${sessionScope.get('user').getLogin()}"/></p>
     </div>
     <div class="pull-right">
 
