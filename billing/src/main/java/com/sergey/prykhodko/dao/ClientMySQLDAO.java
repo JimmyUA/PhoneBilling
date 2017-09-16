@@ -6,6 +6,7 @@ import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.ClientBuilder;
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
+import org.apache.log4j.Logger;
 
 
 import javax.naming.Context;
@@ -16,8 +17,10 @@ import java.sql.*;
 import java.util.*;
 
 import static com.sergey.prykhodko.model.users.UserRole.CLIENT;
+import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 public class ClientMySQLDAO extends UserDAO {
+    private static Logger logger = Logger.getLogger(getCurrentClassName());
     private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
 
     public ClientMySQLDAO() throws NamingException, SQLException {
@@ -129,10 +132,11 @@ public class ClientMySQLDAO extends UserDAO {
     }
 
     @Override
-    public List<Client> getAllUsersPortion(int portion, int startFrom) throws SQLException {
+    public List<Client> getAllUsersPortion(int portion, int pageNumber) throws SQLException {
         List<Client> clients = new ArrayList<>();
+        int start = (portion * pageNumber) - portion;
         final String getAllClientsQuery = "SELECT * FROM clients ORDER BY login LIMIT "
-                                            + startFrom + ", " + (startFrom + portion - 1);
+                                            + start+ ", " + portion;
         ResultSet resultSet = statement.executeQuery(getAllClientsQuery);
             Client client;
             while (resultSet.next()){

@@ -4,6 +4,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="clients" value="${requestScope.get('clients')}" scope="page"/>
+<c:set var="page" value="${sessionScope.get('pageNumber')}"/>
+<c:set var="lastPage" value="${sessionScope.get('lastPage')}"/>
 <html>
 <head>
     <title>Clients</title>
@@ -41,7 +43,7 @@
 
             <p>${sessionScope.get("pageNumber").toString()}</p>
 
-            <c:if test="${sessionScope.get('lastPage') != sessionScope.get('pageNumber')}">
+            <c:if test="${lastPage != page}">
                 <input name="next" type="submit" value="NEXT" class="ui-button  submitBtn"/>
             </c:if>
         </form>

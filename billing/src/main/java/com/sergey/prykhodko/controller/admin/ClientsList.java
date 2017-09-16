@@ -24,12 +24,13 @@ import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 @WebServlet(urlPatterns = "/clientsList", name = "clientList",
             initParams = {
-                @WebInitParam(name = "portion", value = "3")
+                @WebInitParam(name = "portion", value = "5")
             })
 public class ClientsList extends HttpServlet {
 
     private int portion;
     private int pageNumber;
+    private int lastPage;
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
 
@@ -43,43 +44,35 @@ public class ClientsList extends HttpServlet {
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
-        int lastPage = totalClientsAmount / portion + (totalClientsAmount % 2 == 0 ? 0 : 1);
+        lastPage = (totalClientsAmount / portion) + (totalClientsAmount % portion == 0 ? 0 : 1);
 
-        getServletContext().setAttribute("lastPage", "" + lastPage);
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int startFrom = 0;
+//        int startFrom = 0;
         int portion = Integer.parseInt(getServletConfig().getInitParameter("portion"));
-        startFrom = changeStartPosition(request, startFrom);
+        changeStartPosition(request);
 
         List<Client> clients = new ArrayList<>();
         try {
-            clients = new UsersManager().getAllClientsPortion(FactoryType.MySQL, portion, startFrom);
+            clients = new UsersManager().getAllClientsPortion(FactoryType.MySQL, portion, pageNumber);
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
         request.getSession().setAttribute("clients", clients);
+        request.getSession().setAttribute("lastPage", lastPage);
         request.getSession().setAttribute("pageNumber", pageNumber);
-        request.getSession().setAttribute("startFrom", startFrom);
+//        request.getSession().setAttribute("startFrom", startFrom);
         request.getRequestDispatcher("clientsList.jsp").forward(request, response);
     }
 
-    private int changeStartPosition(HttpServletRequest request, int startFrom) {
-        try {
-            startFrom = (Integer) request.getSession().getAttribute("startFrom");
+    private void changeStartPosition(HttpServletRequest request) {
             if (request.getParameter("previous") != null) {
                 pageNumber--;
-                startFrom -= portion;
             } else if (request.getParameter("next") != null) {
                 pageNumber++;
-                startFrom += portion;
             }
-        } catch (NullPointerException e) {
-            return 1;
-        }
-        return startFrom;
     }
 
 }

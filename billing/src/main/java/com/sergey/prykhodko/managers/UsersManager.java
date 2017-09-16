@@ -130,8 +130,8 @@ public class UsersManager {
 
     public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, mySQL);
-        userDAO.closeConnection();
         int totalClientsAmount = userDAO.getTotalClientsAmount();
+        userDAO.closeConnection();
         return totalClientsAmount;
     }
 }

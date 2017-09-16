@@ -33,16 +33,23 @@ public class Registration extends HttpServlet {
         String login = request.getParameter("login");
         String email = request.getParameter("e-mail");
         String password = request.getParameter("password");
-        password = PasswordEncoder.encodePassword(password);
+        String confirmPassword = request.getParameter("confirmPassword");
 
-        Client client = new ClientBuilder()
-                .setLogin(login)
-                .setPassword(password)
-                .setEmail(email)
-                .setActive(false)
-                .setFullName(fullName)
-                .build();
-
+        Client client;
+        if (password.equals(confirmPassword)) {
+            password = PasswordEncoder.encodePassword(password);
+                client = new ClientBuilder()
+                    .setLogin(login)
+                    .setPassword(password)
+                    .setEmail(email)
+                    .setActive(false)
+                    .setFullName(fullName)
+                    .build();
+        }
+        else {
+            response.sendRedirect("register.jsp");
+            return;
+        }
         if (new ClientValidator().validate(client)) {
             try {
                 new UsersManager().addUserToDB(client, FactoryType.MySQL);
