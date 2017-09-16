@@ -43,9 +43,10 @@
                                        pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
                             </div>
                             <div class="field" data-fieldname="confirmPassword">
-                                <input id="confirmPassword" autocomplete="off" value="" maxlength="50"
-                                       placeholder="Confirm password" class="" type="password" required
-                                        title="Passwords should be equals" onchange="validate()">
+                                <input id="confirmPassword" name="confirmPassword" autocomplete="off"
+                                       value="" maxlength="50" placeholder="Confirm password" class=""
+                                       type="password" required title="Passwords should be equals"
+                                       onchange="validate()">
                             </div>
                                 <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn >
                                     <span class="ui-button-text>REGISTER</span>

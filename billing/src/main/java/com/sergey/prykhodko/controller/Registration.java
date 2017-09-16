@@ -4,7 +4,9 @@ package com.sergey.prykhodko.controller;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.managers.ClientValidator;
 import com.sergey.prykhodko.managers.PasswordEncoder;
+import com.sergey.prykhodko.managers.UserService;
 import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.managers.commands.RegisterClient;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.ClientBuilder;
 import org.apache.log4j.Logger;
@@ -47,13 +49,15 @@ public class Registration extends HttpServlet {
                     .build();
         }
         else {
+            logger.error("Client was not registered, reason \"passwords is not equals\" " +
+                    "entered password: " + "\"" + password + "\"" +
+                    ", entered confirmation: " + "\"" + confirmPassword + "\"");
             response.sendRedirect("register.jsp");
             return;
         }
         if (new ClientValidator().validate(client)) {
             try {
-                new UsersManager().addUserToDB(client, FactoryType.MySQL);
-                logger.info(client.getLogin() + " is registered as a client");
+                UserService.executeCommand(new RegisterClient(client));
                 request.setAttribute("user", client);
                 request.getRequestDispatcher("welcomeNewClient.jsp").forward(request, response);
             } catch (SQLException | NamingException e) {
