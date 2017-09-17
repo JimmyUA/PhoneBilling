@@ -17,6 +17,7 @@
     </div>
 </header>
 
+<jsp:include page="clientPersonalInformation.jsp"/>
 
 <footer>
 
