@@ -21,7 +21,9 @@ import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 public class ClientMySQLDAO extends UserDAO {
     private static Logger logger = Logger.getLogger(getCurrentClassName());
-    private String getClientQuery = "SELECT  login, password FROM clients WHERE login = '%s'";
+    private String getClientQuery = "SELECT  * FROM clients " +
+            "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
+            "WHERE login = '%s'";
 
     public ClientMySQLDAO() throws NamingException, SQLException {
         InitialContext initialContext = new InitialContext();
@@ -62,16 +64,17 @@ public class ClientMySQLDAO extends UserDAO {
     public List<Client> getAllUsers(UserRole role) throws SQLException {
         List<Client> clients = new ArrayList<>();
         final String getAllClientsQuery = "SELECT * FROM clients";
-        ResultSet resultSet = statement.executeQuery(getAllClientsQuery);
-        if (role == CLIENT) {
-            Client client;
-            while (resultSet.next()){
-                client = buildClientFromDB(resultSet);
-                clients.add(client);
+        try (ResultSet resultSet = statement.executeQuery(getAllClientsQuery)) {
+            if (role == CLIENT) {
+                Client client;
+                while (resultSet.next()) {
+                    client = buildClientFromDB(resultSet);
+                    clients.add(client);
+                }
+                return clients;
             }
-            return clients;
+            return Collections.emptyList();
         }
-        return Collections.emptyList();
     }
 
     private Client buildClientFromDB(ResultSet resultSet) throws SQLException {
@@ -103,11 +106,12 @@ public class ClientMySQLDAO extends UserDAO {
         Set<String> logins = new HashSet<>();
         final String loginsQuery = "SELECT login FROM clients";
 
-        ResultSet result = statement.executeQuery(loginsQuery);
-        while (result.next()) {
-            logins.add(result.getString(1));
+        try(ResultSet result = statement.executeQuery(loginsQuery)) {
+            while (result.next()) {
+                logins.add(result.getString(1));
+            }
+            return logins;
         }
-        return logins;
     }
 
     private Client getClientByID(int ID) throws SQLException {
@@ -136,22 +140,26 @@ public class ClientMySQLDAO extends UserDAO {
         List<Client> clients = new ArrayList<>();
         int start = (portion * pageNumber) - portion;
         final String getAllClientsQuery = "SELECT * FROM clients ORDER BY login LIMIT "
-                                            + start+ ", " + portion;
-        ResultSet resultSet = statement.executeQuery(getAllClientsQuery);
+                + start + ", " + portion;
+
+        try(ResultSet resultSet = statement.executeQuery(getAllClientsQuery)) {
             Client client;
-            while (resultSet.next()){
+            while (resultSet.next()) {
                 client = buildClientFromDB(resultSet);
                 clients.add(client);
             }
             return clients;
+        }
     }
 
     @Override
     public int getTotalClientsAmount() throws SQLException {
         final String getTotalClientsAmountQuery = "SELECT COUNT(*) FROM clients";
-        ResultSet resultSet = statement.executeQuery(getTotalClientsAmountQuery);
-        resultSet.next();
-        int clientsAmount = Integer.parseInt(resultSet.getString(1));
-        return clientsAmount;
+
+        try(ResultSet resultSet = statement.executeQuery(getTotalClientsAmountQuery)) {
+            resultSet.next();
+            int clientsAmount = Integer.parseInt(resultSet.getString(1));
+            return clientsAmount;
+        }
     }
 }

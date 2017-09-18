@@ -18,6 +18,14 @@ public class RegisterClient implements Command {
     public RegisterClient(Client client) {
         this.client = client;
     }
+
+    public RegisterClient() {
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public void execute() throws SQLException, NamingException {
         new UsersManager().addUserToDB(client, FactoryType.MySQL);

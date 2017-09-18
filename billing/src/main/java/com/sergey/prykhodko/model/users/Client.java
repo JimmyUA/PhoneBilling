@@ -12,7 +12,7 @@ import java.util.Set;
 public class Client extends User {
     private String fullName;
     private boolean isActive;
-    private int tariffId;
+    private TariffPlan tariffPlan;
     private Set<Service> availableServises;
     private Set<Service> activeServices;
 
@@ -37,12 +37,12 @@ public class Client extends User {
         return fullName;
     }
 
-    public int getTariffId() {
-        return tariffId;
+    public TariffPlan getTariffPlan() {
+        return tariffPlan;
     }
 
-    public void setTariffId(int tariffId) {
-        this.tariffId = tariffId;
+    public void setTariffPlan(TariffPlan tariffPlan) {
+        this.tariffPlan = tariffPlan;
     }
 
     public boolean isActive() {

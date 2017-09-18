@@ -11,6 +11,7 @@
 <header>
     <div class="cabinetGreeting">
         <p>Hello, <c:out value="${sessionScope.get('user').getLogin()}"/></p>
+        <a href="/logout">Logout</a>
     </div>
     <div class="pull-right">
 
