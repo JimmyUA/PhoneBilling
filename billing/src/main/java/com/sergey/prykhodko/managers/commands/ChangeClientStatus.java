@@ -15,6 +15,13 @@ public class ChangeClientStatus implements Command {
         this.client = client;
     }
 
+    public ChangeClientStatus() {
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
     @Override
     public void execute() throws SQLException, NamingException {
         changeClientStatus(client);

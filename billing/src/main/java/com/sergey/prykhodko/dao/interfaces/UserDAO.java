@@ -1,6 +1,8 @@
 package com.sergey.prykhodko.dao.interfaces;
 
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.ClientBuilder;
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
@@ -25,25 +27,39 @@ public abstract class UserDAO implements DAO {
 
 
     public User getUserByLogin(String login) throws SQLException{ //TODO change to each implementation method
-        User user = null;
-        statement = connection.createStatement();
-        addQuery = addValue(addQuery, login);
-        ResultSet resultSet = statement.executeQuery(addQuery);
+        Client client = null;
+        try {
+            statement = connection.createStatement();
+            addQuery = addValue(addQuery, login);
+            ResultSet resultSet = statement.executeQuery(addQuery);
 
-        logger.info(connection);
+            if (resultSet.next()) {
+                TariffPlan tariffPlan = new TariffPlan(resultSet.getString(10));
 
-        if (resultSet.next()) {
-            user = new Client(resultSet.getString(1), resultSet.getString(2));//problem here I'm creating always client
+                client = new ClientBuilder()
+                        .setLogin(resultSet.getString(2))
+                        .setPassword(resultSet.getString(3))
+                        .setEmail(resultSet.getString(4))
+                        .setFullName(resultSet.getString(6))
+                        .setActive(resultSet.getBoolean(7))
+                        .setId(resultSet.getInt(1))
+                        .setTariffPlan(tariffPlan)
+                        .build();
+
+            }
+
+            return client;
+        } catch (SQLException e){
+            logger.error(e);
+            return null;
         }
-
-        return user;
     }
 
     public abstract User getUserByID(int id) throws SQLException;
 
     public abstract void updateUser(Client client) throws SQLException;
 
-    private String addValue(String query, String entry) {
+    protected String addValue(String query, String entry) {
         Formatter formatter = new Formatter();
         formatter.format(query, entry);
         return formatter.toString();
@@ -56,6 +72,9 @@ public abstract class UserDAO implements DAO {
     public abstract int getTotalClientsAmount() throws SQLException;
 
     public void closeConnection() throws SQLException {
+        statement.close();
         connection.close();
     }
+
+
 }

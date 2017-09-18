@@ -1,14 +1,13 @@
 package com.sergey.prykhodko.dao;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import com.sergey.prykhodko.model.users.Client;
-import com.sergey.prykhodko.model.users.User;
-import com.sergey.prykhodko.model.users.UserRole;
+import com.sergey.prykhodko.model.users.*;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
@@ -62,5 +61,17 @@ public class AdminMySqlDAO extends UserDAO {
         return 0;
     }
 
+    @Override
+    public User getUserByLogin(String login) throws SQLException {
+        Admin admin = null;
+        statement = connection.createStatement();
+        addQuery = addValue(addQuery, login);
+        ResultSet resultSet = statement.executeQuery(addQuery);
 
+        if (resultSet.next()) {
+            admin = new Admin(resultSet.getString(1), resultSet.getString(2));
+        }
+
+        return admin;
+    }
 }
