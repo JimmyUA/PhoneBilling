@@ -208,3 +208,7 @@ input{
     color: #000;
     border-collapse: collapse;
 }
+
+.error{
+    color: darkred;
+}

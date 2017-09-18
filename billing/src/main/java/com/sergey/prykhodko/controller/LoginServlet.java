@@ -39,9 +39,15 @@ public class LoginServlet extends HttpServlet {
             logger.error(e);
             response.sendRedirect("/login");
         }
-        if (passwordIsWrong(password, user)){
-            response.sendRedirect("login.jsp"); //todo add flag to show message "wrong password"
-        }else {
+        if (user == null) {
+            logger.info("User with login: \"" + login + "\" was not found");
+            request.getSession().setAttribute("errorMessage", "Login is not registered");
+            response.sendRedirect("/login");
+        } else if (passwordIsWrong(password, user)) {
+            logger.info("User with login: \"" + login + "\" have entered wrong password");
+            request.getSession().setAttribute("errorMessage", "Password is wrong");
+            response.sendRedirect("login.jsp");
+        } else {
             if (user.getRole() == UserRole.CLIENT) {
                 logger.info(user.getLogin() + " logged in");
                 request.getSession().setAttribute("user", user);

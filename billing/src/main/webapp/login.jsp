@@ -1,16 +1,17 @@
-<%@page import="javax.naming.Context"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.SQLException"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="javax.sql.DataSource"%>
-<%@page import="javax.naming.InitialContext"%>
+<%@page import="javax.naming.Context" %>
+<%@page import="java.sql.ResultSet" %>
+<%@page import="java.sql.PreparedStatement" %>
+<%@page import="java.sql.SQLException" %>
+<%@page import="java.sql.Connection" %>
+<%@page import="javax.sql.DataSource" %>
+<%@page import="javax.naming.InitialContext" %>
 <%@ page contentType="text/html; charset=UTF-8; charset=UTF-8" pageEncoding="UTF-8" %>
 
 
 <html>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<c:set var="errorMessage" value="${sessionScope.get('errorMessage')}" scope="page"/>
 <c:set var="language"/>
 
 <c:if test="${not empty param.language}">
@@ -33,7 +34,8 @@
     </form>
 </header>
 <article class="loginArticle">
-    <form id="loginForm" name="loginForm" method="post" action="<c:url value="/login"/>" class="loginForm" accept-charset="UTF-8">
+    <form id="loginForm" name="loginForm" method="post" action="<c:url value="/login"/>" class="loginForm"
+          accept-charset="UTF-8">
         <input name="loginForm" value="loginForm" type="hidden">
         <input id="loginForm:hiddenLocalStorage" name="loginForm:hiddenLocalStorage" type="hidden">
         <div id="loginTable" style="display: inline-flex;" class="formsWrapperDiv">
@@ -43,36 +45,23 @@
             </div>
             <div class="formsFloatDiv">
                 <input id="loginForm:login" name="loginForm:login" class="formsInputElem formsInputMiddle" type="text">
-                <input id="loginForm:password" name="loginForm:password" value="" class="formsInputElem formsInputMiddle" type="password">
+                <input id="loginForm:password" name="loginForm:password" value=""
+                       class="formsInputElem formsInputMiddle" type="password">
             </div>
         </div>
-            <button id="loginForm:submit" name="loginForm:submit" class="ui-button  submitBtn">
-                <span class="ui-button-text ui-c"><fmt:message key="login"/></span>
-            </button>
+        <button id="loginForm:submit" name="loginForm:submit" class="ui-button  submitBtn">
+            <span class="ui-button-text ui-c"><fmt:message key="login"/></span>
+        </button>
+
+        <div class="error">
+            <c:out value="${errorMessage.toString()}"/>
+        </div>
     </form>
+
 
     <div class="ifNotRegister">
         <p>Not registered yet? <a href="register.jsp"> Click here!</a></p>
     </div>
-    <%--<h1>Data in my Connection Pooled Database</h1>--%>
-    <%--<br>--%>
-    <%--<%--%>
-        <%--InitialContext initialContext = new InitialContext();--%>
-        <%--Context context = (Context) initialContext.lookup("java:comp/env");--%>
-        <%--//The JDBC Data source that we just created--%>
-        <%--DataSource ds = (DataSource) context.lookup("jdbc/billing");--%>
-        <%--Connection connection = ds.getConnection();--%>
-
-        <%--if (connection == null)--%>
-        <%--{--%>
-            <%--throw new SQLException("Error establishing connection!");--%>
-        <%--}--%>
-        <%--String addQuery = "SELECT * FROM clients";--%>
-
-        <%--PreparedStatement statement = connection.prepareStatement(addQuery);--%>
-        <%--ResultSet rs = statement.executeQuery();--%>
-
-    <%--%>--%>
 
 </article>
 <footer>
