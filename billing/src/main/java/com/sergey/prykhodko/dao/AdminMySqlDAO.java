@@ -52,7 +52,7 @@ public class AdminMySqlDAO extends UserDAO {
     }
 
     @Override
-    public Set<String> getLogins() throws SQLException {
+    public Set<String> getLogins() {
         return null;
     }
 

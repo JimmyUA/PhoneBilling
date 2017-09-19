@@ -101,7 +101,6 @@ public class ClientMySqlDAO extends UserDAO {
         return i == 0;
     }
 
-    @Override
     public Set<String> getLogins() throws SQLException {
         Set<String> logins = new HashSet<>();
         final String loginsQuery = "SELECT login FROM clients";
