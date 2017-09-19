@@ -19,13 +19,13 @@ import java.util.*;
 import static com.sergey.prykhodko.model.users.UserRole.CLIENT;
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
-public class ClientMySQLDAO extends UserDAO {
+public class ClientMySqlDAO extends UserDAO {
     private static Logger logger = Logger.getLogger(getCurrentClassName());
     private String getClientQuery = "SELECT  * FROM clients " +
             "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
             "WHERE login = '%s'";
 
-    public ClientMySQLDAO() throws NamingException, SQLException {
+    public ClientMySqlDAO() throws NamingException, SQLException {
         InitialContext initialContext = new InitialContext();
         Context context = (Context) initialContext.lookup("java:comp/env");
 

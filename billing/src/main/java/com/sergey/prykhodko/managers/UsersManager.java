@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.managers;
 
-import com.sergey.prykhodko.dao.ClientMySQLDAO;
+import com.sergey.prykhodko.dao.ClientMySqlDAO;
 import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
@@ -88,7 +88,7 @@ public class UsersManager {
     public List<Client> getAllClients(FactoryType factoryType) throws SQLException, NamingException {
         List<Client> clients;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
-        ClientMySQLDAO clientDAO = (ClientMySQLDAO) userDAO;
+        ClientMySqlDAO clientDAO = (ClientMySqlDAO) userDAO;
         clients = clientDAO.getAllUsers(CLIENT);
         clientDAO.closeConnection();
         return clients;

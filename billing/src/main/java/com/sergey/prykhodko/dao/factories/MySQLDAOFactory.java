@@ -1,7 +1,8 @@
 package com.sergey.prykhodko.dao.factories;
 
 import com.sergey.prykhodko.dao.AdminMySqlDAO;
-import com.sergey.prykhodko.dao.ClientMySQLDAO;
+import com.sergey.prykhodko.dao.ClientMySqlDAO;
+import com.sergey.prykhodko.dao.TariffPlanDAO;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.model.users.UserRole;
@@ -15,7 +16,7 @@ public class MySQLDAOFactory implements DAOFactory {
     public UserDAO getUserDAO(UserRole role) throws SQLException, NamingException {
         switch (role) {
             case CLIENT:
-                return new ClientMySQLDAO();
+                return new ClientMySqlDAO();
             case ADMIN:
                 return new AdminMySqlDAO();
             case GUEST:
@@ -23,5 +24,10 @@ public class MySQLDAOFactory implements DAOFactory {
                 default:
                     return null;
         }
+    }
+
+    @Override
+    public TariffPlanDAO getTariffDAO() throws SQLException, NamingException {
+        return new TariffPlanMySqlDAO();
     }
 }

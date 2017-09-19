@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.dao.factories;
 
-import com.sergey.prykhodko.dao.TariffDAO;
+import com.sergey.prykhodko.dao.TariffPlanDAO;
 
-public class TariffMySqlDAO extends TariffDAO {
+public class TariffPlanMySqlDAO extends TariffPlanDAO {
 }
