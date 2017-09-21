@@ -1,9 +1,7 @@
 package com.sergey.prykhodko.controller;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.PasswordEncoder;
-import com.sergey.prykhodko.managers.UserService;
-import com.sergey.prykhodko.managers.commands.LoginCommand;
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
 import com.sergey.prykhodko.managers.UsersManager;

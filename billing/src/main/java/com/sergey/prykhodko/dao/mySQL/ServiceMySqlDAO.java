@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.dao;
+package com.sergey.prykhodko.dao.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.ServiceDAO;
 import com.sergey.prykhodko.managers.ServiceBuilder;

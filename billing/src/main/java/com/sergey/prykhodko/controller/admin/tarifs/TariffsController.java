@@ -1,6 +1,6 @@
-package com.sergey.prykhodko.controller.admin;
+package com.sergey.prykhodko.controller.admin.tarifs;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.TariffManager;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import org.apache.log4j.Logger;

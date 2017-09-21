@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.managers;
 
-import com.sergey.prykhodko.dao.ClientMySqlDAO;
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.mySQL.ClientMySqlDAO;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.model.users.Admin;

@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.controller.admin;
 
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.UserService;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.managers.commands.ChangeClientStatus;

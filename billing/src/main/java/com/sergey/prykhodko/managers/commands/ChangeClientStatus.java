@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.managers.commands;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.model.users.Client;
 

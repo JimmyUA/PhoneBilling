@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.dao.factories.MySQLDAOFactory;
 import com.sergey.prykhodko.model.users.UserRole;
 

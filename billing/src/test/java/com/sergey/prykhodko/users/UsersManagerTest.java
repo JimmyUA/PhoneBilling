@@ -1,12 +1,6 @@
 package com.sergey.prykhodko.users;
 
-import com.sergey.prykhodko.dao.FactoryType;
-import com.sergey.prykhodko.dao.interfaces.UserDAO;
-import com.sergey.prykhodko.managers.UsersManager;
-import org.junit.Test;
 
-
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 public class UsersManagerTest {

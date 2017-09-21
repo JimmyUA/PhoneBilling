@@ -5,7 +5,7 @@ import com.sergey.prykhodko.managers.TariffPlanBuilder;
 import java.sql.SQLException;
 import java.util.List;
 
-public interface TariffPlanDAO extends DAO{
+public interface TariffPlanDAO extends DAO {
     void closeConnection() throws SQLException;
 
     List<TariffPlanBuilder> getAllTariffPlanBuilders() throws SQLException;
@@ -15,4 +15,6 @@ public interface TariffPlanDAO extends DAO{
     int getIDByName(String tariffName) throws SQLException;
 
     void addServicesToTariffPlan(int tariffID, String[] servicesIDs) throws SQLException;
+
+    void deleteTariffPlan(String tariffID) throws SQLException;
 }

@@ -1,13 +1,11 @@
 package com.sergey.prykhodko.controller.admin;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.model.users.Client;
 import org.apache.log4j.Logger;
 
-import javax.jws.WebParam;
 import javax.naming.NamingException;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
@@ -17,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;

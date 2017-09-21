@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.dao;
+package com.sergey.prykhodko.dao.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
 import com.sergey.prykhodko.managers.TariffPlanBuilder;
@@ -95,5 +95,14 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
             addServicesQuery = "INSERT INTO tariff_service VALUES (" + tariffID + ", " + serviceID + ")";
             statement.execute(addServicesQuery);
         }
+    }
+
+    @Override
+    public void deleteTariffPlan(String tariffID) throws SQLException {
+        final String deleteTariffQuery = "DELETE FROM tariffs WHERE id_tariff=" + tariffID;
+        final String deleteTariffFromConnectTableQuery = "DELETE FROM tariff_service WHERE id_tariff=" + tariffID;
+
+        statement.execute(deleteTariffFromConnectTableQuery);
+        statement.execute(deleteTariffQuery);
     }
 }

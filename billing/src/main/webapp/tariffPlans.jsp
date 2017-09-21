@@ -17,15 +17,21 @@
     <h1>Tariffs</h1>
     <c:forEach var="tariff" items="${tariffs}">
         <tr id="tariffsTable" class="table">
-            <td><c:out value="${tariff.getName()}"/>|</td>
-            <td>${tariff.getChargeForMonth()} |</td>
+            <td>Tariff Plan name: "<c:out value="${tariff.getName()}"/>"</td><br>
+            <td>Charge per month: ${tariff.getChargeForMonth()} $</td><br>
         </tr>
+        <h3>Services</h3>
         <c:forEach var="service" items="${tariff.getServices()}">
             </br>
             <td><c:out value="${service.getName()}"/>|</td>
             <td>${service.getChargePerMonth()} |</td>
         </c:forEach>
-        <br>
+        <form action="<c:url value="/deleteTariff"/>" method="post">
+            <input type="hidden" name="tariffID" value="${tariff.getID()}">
+            <input type="submit" id="deleteTariff" name="deleteTariff"
+               class="ui-button submitBtn" value="Delete Tariff">
+        </form>
+        <br><br>
     </c:forEach>
     <form action="<c:url value="/createTariff"/>" method="get">
         <input type="submit" id="createTariff" name="createTariff"

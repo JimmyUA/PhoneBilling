@@ -1,11 +1,9 @@
 package com.sergey.prykhodko.controller;
 
 
-import com.sergey.prykhodko.dao.FactoryType;
 import com.sergey.prykhodko.managers.ClientValidator;
 import com.sergey.prykhodko.managers.PasswordEncoder;
 import com.sergey.prykhodko.managers.UserService;
-import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.managers.commands.RegisterClient;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.ClientBuilder;

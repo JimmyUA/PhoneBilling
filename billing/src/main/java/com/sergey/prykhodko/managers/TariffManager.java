@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.managers;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
 import com.sergey.prykhodko.model.services.Service;
@@ -72,6 +72,12 @@ public class TariffManager {
     public void addServicesToTariff(int tariffID, String[] servicesIDs, FactoryType factoryType) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
         tariffPlanDAO.addServicesToTariffPlan(tariffID, servicesIDs);
+        tariffPlanDAO.closeConnection();
+    }
+
+    public void deleteTariff(FactoryType factoryType, String tariffID) throws SQLException, NamingException {
+        TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
+        tariffPlanDAO.deleteTariffPlan(tariffID);
         tariffPlanDAO.closeConnection();
     }
 }

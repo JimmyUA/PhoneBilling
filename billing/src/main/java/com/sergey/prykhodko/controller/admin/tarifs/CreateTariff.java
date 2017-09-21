@@ -1,8 +1,7 @@
-package com.sergey.prykhodko.controller.admin;
+package com.sergey.prykhodko.controller.admin.tarifs;
 
-import com.sergey.prykhodko.dao.FactoryType;
+import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.ServiceManager;
-import com.sergey.prykhodko.managers.commands.Command;
 import com.sergey.prykhodko.managers.commands.CreateTariffCommand;
 import com.sergey.prykhodko.model.services.Service;
 import org.apache.log4j.Logger;
@@ -20,19 +19,18 @@ import java.util.List;
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 @WebServlet(name = "createTariff", urlPatterns = "/createTariff")
-public class CreateTariff extends HttpServlet{
+public class CreateTariff extends HttpServlet {
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("tariffName");
-        response.getWriter().println(name);
-
         try {
             new CreateTariffCommand(request).execute();
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
+        request.getRequestDispatcher("newTariffCreated.jsp").forward(request, response);
+
     }
 
     @Override
