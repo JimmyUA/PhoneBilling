@@ -8,8 +8,6 @@ import javax.naming.NamingException;
 import java.sql.SQLException;
 
 public interface DAOFactory {
-    UserDAO getUserDAO(UserRole role) throws SQLException, NamingException;
-
     static DAOFactory getDAOFactory(FactoryType factoryType){
         switch (factoryType){
             case MySQL:
@@ -18,4 +16,9 @@ public interface DAOFactory {
                     return new MySQLDAOFactory();
         }
     }
+    UserDAO getUserDAO(UserRole role) throws SQLException, NamingException;
+
+    TariffPlanDAO getTariffPlanDAO() throws SQLException, NamingException;
+
+    ServiceDAO getServiceDAO() throws SQLException, NamingException;
 }

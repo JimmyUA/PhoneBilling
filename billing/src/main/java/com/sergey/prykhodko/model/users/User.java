@@ -15,7 +15,6 @@ public abstract class User {
         this.password = password;
     }
 
-    public abstract void logIn();
 
     public void setId(int id) {
         this.id = id;

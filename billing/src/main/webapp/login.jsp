@@ -58,7 +58,6 @@
         </div>
     </form>
 
-
     <div class="ifNotRegister">
         <p>Not registered yet? <a href="register.jsp"> Click here!</a></p>
     </div>

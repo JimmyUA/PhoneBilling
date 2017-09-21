@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Hello Admin!</h1>
-    <a href="clientsList">Check Clients list</a>
+    <a href="clientsList">Check Clients list</a></br>
+    <a href="tariffs">Tariffs</a>
 </body>
 </html>

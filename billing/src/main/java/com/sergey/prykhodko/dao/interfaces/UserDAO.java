@@ -13,6 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Formatter;
 import java.util.List;
+import java.util.Set;
 
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
@@ -77,4 +78,5 @@ public abstract class UserDAO implements DAO {
     }
 
 
+    public abstract Set<String> getLogins() throws SQLException;
 }

@@ -1,8 +1,10 @@
 package com.sergey.prykhodko.model.users;
 
+import com.sergey.prykhodko.model.account.Account;
 import com.sergey.prykhodko.model.services.Service;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,9 +15,15 @@ public class Client extends User {
     private String fullName;
     private boolean isActive;
     private TariffPlan tariffPlan;
-    private Set<Service> availableServises;
-    private Set<Service> activeServices;
+    private Account account;
 
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+    }
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
@@ -28,9 +36,6 @@ public class Client extends User {
     public Client(String login, String password) {
         super(login, password);
         role = UserRole.CLIENT;
-
-        availableServises = new HashSet<>();
-        activeServices = new HashSet<>();
     }
 
     public String getFullName() {
@@ -49,13 +54,6 @@ public class Client extends User {
         return isActive;
     }
 
-    public void makeRequestToInterconnect(){}
-
-    public void logIn() {
-
-    }
-
-
     @Override
     public UserRole getRole() {
         return role;
@@ -65,9 +63,14 @@ public class Client extends User {
     /////////////////////////Work with balance/////////////////////////////
     //////////////////////////////////////////////////////////////////////
 
-    public void checkCurrentBalance(){}
+    public BigDecimal checkCurrentBalance(){
+        return account.getBalance();
+    }
 
-    public void topUpBalance(int topUpSum){}
+    public void topUpBalance(BigDecimal topUpSum){
+        BigDecimal currentBalance = account.getBalance();
+        currentBalance = currentBalance.add(topUpSum);
+    }
 
     ///////////////////////////////////////////////////////////////////////
     /////////////////////////Work with services////////////////////////////
@@ -77,25 +80,6 @@ public class Client extends User {
 
     public void checkActiveServices(){}
 
-    public void makeRequestToActivateService(Service service){
-        if (isAvailable(service)){
-
-        }
-    }
-
-    private boolean isAvailable(Service service){
-        return activeServices.contains(service);
-    }
-
-    public void makeRequestToDeactivateService(Service service){
-        if (isActive(service)){
-
-        }
-    }
-
-    private boolean isActive(Service service){
-        return activeServices.contains(service);
-    }
 
     private void makeRequestToChangeTariffPlan(TariffPlan current, TariffPlan newOne){}
 }
