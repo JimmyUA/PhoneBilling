@@ -50,6 +50,15 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
         }
     }
 
+    @Override
+    public void saveNewTariffPlan(String tariffName) throws SQLException {
+        String addNewTariffQuery = "INSERT INTO tariffs (name) VALUES ('" + tariffName + "')";
+        boolean isAdded = !(statement.execute(addNewTariffQuery));
+        if (isAdded){
+            logger.info("Created new tariff plan \"" + tariffName + "\"");
+        }
+    }
+
     private TariffPlanBuilder buildTariffPlanBuilder(ResultSet resultSet) throws SQLException {
         TariffPlanBuilder tariffPlanBuilder = new TariffPlanBuilder()
                 .setId(resultSet.getInt(1))
@@ -62,5 +71,29 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
         statement.close();
         connection.close();
 
+    }
+
+    @Override
+    public int getIDByName(String tariffName) throws SQLException {
+        int id = -1;
+        final String getIDByNameQuery = "SELECT id_tariff FROM tariffs WHERE name='" + tariffName + "'";
+        try(ResultSet resultSet = statement.executeQuery(getIDByNameQuery)){
+            if(resultSet.next()){
+                id = resultSet.getInt(1);
+            }
+        }
+        return id;
+    }
+
+    @Override
+    public void addServicesToTariffPlan(int tariffID, String[] servicesIDs) throws SQLException {
+        String serviceID;
+        String addServicesQuery;
+
+        for (int i = 0; i < servicesIDs.length; i++) {
+            serviceID = servicesIDs[i];
+            addServicesQuery = "INSERT INTO tariff_service VALUES (" + tariffID + ", " + serviceID + ")";
+            statement.execute(addServicesQuery);
+        }
     }
 }

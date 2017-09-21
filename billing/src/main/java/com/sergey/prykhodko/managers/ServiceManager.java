@@ -17,12 +17,16 @@ public class ServiceManager {
 
     public List<Service> getServiceByID(int tariffPlanID, FactoryType factoryType) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
-        List<Service> services = serviceDAO.getServicesByTariffPlanID(tariffPlanID);
-        return services;
+        return serviceDAO.getServicesByTariffPlanID(tariffPlanID);
     }
 
     private ServiceDAO getServiceDAO(FactoryType factoryType) throws SQLException, NamingException {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);
         return factory.getServiceDAO();
+    }
+
+    public List<Service> getAllServices(FactoryType factoryType) throws SQLException, NamingException {
+        ServiceDAO serviceDAO = getServiceDAO(factoryType);
+        return serviceDAO.getAllServices();
     }
 }

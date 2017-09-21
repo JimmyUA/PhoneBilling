@@ -17,7 +17,7 @@ public class Service {
         return chargePerMonth;
     }
 
-    public int getId() {
+    public int getID() {
         return id;
     }
 

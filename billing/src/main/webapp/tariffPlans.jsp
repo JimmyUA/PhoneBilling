@@ -11,6 +11,7 @@
 <html>
 <head>
     <title>Tariff Plans</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
     <h1>Tariffs</h1>
@@ -26,7 +27,7 @@
         </c:forEach>
         <br>
     </c:forEach>
-    <form onclick="/createTariff" method="post">
+    <form action="<c:url value="/createTariff"/>" method="get">
         <input type="submit" id="createTariff" name="createTariff"
            class="ui-button  submitBtn" value="Create new Tariff">
     </form>

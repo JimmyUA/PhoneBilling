@@ -6,7 +6,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ServiceDAO extends DAO {
+
     List<Service> getServicesByTariffPlanID(int TariffID) throws SQLException;
 
+    List<Service> getAllServices() throws SQLException;
+
     void closeConnection() throws SQLException;
+
 }

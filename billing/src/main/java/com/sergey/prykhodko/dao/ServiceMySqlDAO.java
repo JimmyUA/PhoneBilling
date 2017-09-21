@@ -44,7 +44,7 @@ public class ServiceMySqlDAO implements ServiceDAO {
         Service service;
         try(ResultSet resultSet = statement.executeQuery(getIDsByTariffIDQuery)){
             while (resultSet.next()){
-                service = buildService(resultSet);
+                service = buildServiceFromJoinTables(resultSet);
                 services.add(service);
             }
         }
@@ -52,11 +52,35 @@ public class ServiceMySqlDAO implements ServiceDAO {
         return services;
     }
 
-    private Service buildService(ResultSet resultSet) throws SQLException {
+    private Service buildServiceFromJoinTables(ResultSet resultSet) throws SQLException {
         Service service = new ServiceBuilder()
                 .setID(resultSet.getInt(3))
                 .setName(resultSet.getString(4))
                 .setCharge(new BigDecimal(resultSet.getString(5)))
+                .build();
+        return service;
+    }
+
+    @Override
+    public List<Service> getAllServices() throws SQLException {
+        final String getAllServices = "SELECT * FROM services";
+
+        List<Service> services = new ArrayList<>(0);
+        Service service;
+        try(ResultSet resultSet = statement.executeQuery(getAllServices)){
+            while (resultSet.next()){
+                service = buildService(resultSet);
+                services.add(service);
+            }
+        }
+        return services;
+    }
+
+    private Service buildService(ResultSet resultSet) throws SQLException {
+        Service service = new ServiceBuilder()
+                .setID(resultSet.getInt(1))
+                .setName(resultSet.getString(2))
+                .setCharge(new BigDecimal(resultSet.getString(3)))
                 .build();
         return service;
     }

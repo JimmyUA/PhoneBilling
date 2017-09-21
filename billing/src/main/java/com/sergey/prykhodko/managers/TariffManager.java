@@ -55,4 +55,23 @@ public class TariffManager {
         DAOFactory factory = DAOFactory.getDAOFactory(factoryType);
         return factory.getTariffPlanDAO();
     }
+
+    public void addNewTariffPlan(FactoryType factoryType, String tariffName) throws SQLException, NamingException {
+        TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
+        tariffPlanDAO.saveNewTariffPlan(tariffName);
+        tariffPlanDAO.closeConnection();
+    }
+
+    public int getIDByName(FactoryType factoryType, String tariffName) throws SQLException, NamingException {
+        TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
+        int ID = tariffPlanDAO.getIDByName(tariffName);
+        tariffPlanDAO.closeConnection();
+        return ID;
+    }
+
+    public void addServicesToTariff(int tariffID, String[] servicesIDs, FactoryType factoryType) throws SQLException, NamingException {
+        TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
+        tariffPlanDAO.addServicesToTariffPlan(tariffID, servicesIDs);
+        tariffPlanDAO.closeConnection();
+    }
 }
