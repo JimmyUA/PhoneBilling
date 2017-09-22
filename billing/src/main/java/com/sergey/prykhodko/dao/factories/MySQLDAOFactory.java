@@ -1,9 +1,9 @@
 package com.sergey.prykhodko.dao.factories;
 
-import com.sergey.prykhodko.dao.mySQL.AdminMySqlDAO;
-import com.sergey.prykhodko.dao.mySQL.ClientMySqlDAO;
-import com.sergey.prykhodko.dao.mySQL.ServiceMySqlDAO;
-import com.sergey.prykhodko.dao.mySQL.TariffPlanMySqlDAO;
+import com.sergey.prykhodko.dao.implementations.mySQL.AdminMySqlDAO;
+import com.sergey.prykhodko.dao.implementations.mySQL.ClientMySqlDAO;
+import com.sergey.prykhodko.dao.implementations.mySQL.ServiceMySqlDAO;
+import com.sergey.prykhodko.dao.implementations.mySQL.TariffPlanMySqlDAO;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.ServiceDAO;
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;

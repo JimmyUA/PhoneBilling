@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.dao.mySQL;
+package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;

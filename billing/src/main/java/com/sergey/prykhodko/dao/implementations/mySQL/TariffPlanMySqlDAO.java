@@ -1,8 +1,7 @@
-package com.sergey.prykhodko.dao.mySQL;
+package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
 import com.sergey.prykhodko.managers.TariffPlanBuilder;
-import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import org.apache.log4j.Logger;
 
 import javax.naming.Context;

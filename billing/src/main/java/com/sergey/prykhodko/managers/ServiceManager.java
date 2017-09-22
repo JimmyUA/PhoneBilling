@@ -19,7 +19,6 @@ public class ServiceManager {
     public List<Service> getServiceByID(int tariffPlanID, FactoryType factoryType) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
         List<Service> services = serviceDAO.getServicesByTariffPlanID(tariffPlanID);
-        serviceDAO.closeConnection();
         return services;
     }
 
@@ -31,14 +30,12 @@ public class ServiceManager {
     public List<Service> getAllServices(FactoryType factoryType) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
         List<Service> allServices = serviceDAO.getAllServices();
-        serviceDAO.closeConnection();
         return allServices;
     }
 
     public void addNewService(FactoryType factoryType, Service service) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
         serviceDAO.addNewService(service);
-        serviceDAO.closeConnection();
     }
 
     public Service createService(String serviceName, String charge) {
