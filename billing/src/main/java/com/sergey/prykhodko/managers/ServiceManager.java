@@ -7,6 +7,7 @@ import com.sergey.prykhodko.model.services.Service;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,7 +18,9 @@ public class ServiceManager {
 
     public List<Service> getServiceByID(int tariffPlanID, FactoryType factoryType) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
-        return serviceDAO.getServicesByTariffPlanID(tariffPlanID);
+        List<Service> services = serviceDAO.getServicesByTariffPlanID(tariffPlanID);
+        serviceDAO.closeConnection();
+        return services;
     }
 
     private ServiceDAO getServiceDAO(FactoryType factoryType) throws SQLException, NamingException {
@@ -27,6 +30,19 @@ public class ServiceManager {
 
     public List<Service> getAllServices(FactoryType factoryType) throws SQLException, NamingException {
         ServiceDAO serviceDAO = getServiceDAO(factoryType);
-        return serviceDAO.getAllServices();
+        List<Service> allServices = serviceDAO.getAllServices();
+        serviceDAO.closeConnection();
+        return allServices;
+    }
+
+    public void addNewService(FactoryType factoryType, Service service) throws SQLException, NamingException {
+        ServiceDAO serviceDAO = getServiceDAO(factoryType);
+        serviceDAO.addNewService(service);
+        serviceDAO.closeConnection();
+    }
+
+    public Service createService(String serviceName, String charge) {
+        Service service = new Service(serviceName, new BigDecimal(charge));
+        return service;
     }
 }

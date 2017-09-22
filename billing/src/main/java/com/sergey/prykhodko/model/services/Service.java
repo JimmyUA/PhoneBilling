@@ -10,8 +10,13 @@ public class Service {
     private String name;
     private BigDecimal chargePerMonth;
 
+    public Service(String name, BigDecimal chargePerMonth) {
+        this.name = name;
+        this.chargePerMonth = chargePerMonth;
+    }
 
-
+    public Service() {
+    }
 
     public BigDecimal getChargePerMonth() {
         return chargePerMonth;

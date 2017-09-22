@@ -19,7 +19,7 @@ import java.util.List;
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 @WebServlet(name = "createTariff", urlPatterns = "/createTariff")
-public class CreateTariff extends HttpServlet {
+public class CreateTariffController extends HttpServlet {
         private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     @Override

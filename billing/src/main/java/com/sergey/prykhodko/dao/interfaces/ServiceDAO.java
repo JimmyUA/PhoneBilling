@@ -13,4 +13,5 @@ public interface ServiceDAO extends DAO {
 
     void closeConnection() throws SQLException;
 
+    void addNewService(Service service) throws SQLException;
 }

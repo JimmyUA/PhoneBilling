@@ -33,6 +33,10 @@
         </form>
         <br><br>
     </c:forEach>
+    <form action="<c:url value="/createService"/>" method="get">
+        <input type="submit" id="createService" name="createService"
+               class="ui-button  submitBtn" value="Create new service">
+    </form>
     <form action="<c:url value="/createTariff"/>" method="get">
         <input type="submit" id="createTariff" name="createTariff"
            class="ui-button  submitBtn" value="Create new Tariff">

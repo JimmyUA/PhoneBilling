@@ -91,4 +91,12 @@ public class ServiceMySqlDAO implements ServiceDAO {
         connection.close();
 
     }
+
+    @Override
+    public void addNewService(Service service) throws SQLException {
+        final String addServiceQuery = "INSERT INTO services (name, charge_for_month) VALUES ('"
+                                        + service.getName() + "', '" + service.getChargePerMonth() + "')";
+
+        statement.execute(addServiceQuery);
+    }
 }
