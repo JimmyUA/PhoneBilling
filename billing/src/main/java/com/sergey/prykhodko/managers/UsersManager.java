@@ -1,6 +1,5 @@
 package com.sergey.prykhodko.managers;
 
-import com.sergey.prykhodko.dao.implementations.mySQL.ClientMySqlDAO;
 import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
@@ -11,6 +10,7 @@ import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
 
 
+import javax.jws.soap.SOAPBinding;
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
@@ -28,12 +28,10 @@ public class UsersManager {
         logger.info(userDAO);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
-            userDAO.closeConnection();
             return user;
         } else {
             userDAO = factory.getUserDAO(ADMIN);
             user = userDAO.getUserByLogin(login);
-            userDAO.closeConnection();
             if (isUserFound(user)) {
                 user.setRole(ADMIN);
             }
@@ -46,12 +44,10 @@ public class UsersManager {
         User user = userDAO.getUserByID(id);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
-            userDAO.closeConnection();
             return user;
         } else {
             userDAO = getUserDAO(ADMIN, factoryType);
             user = userDAO.getUserByID(id);
-            userDAO.closeConnection();
             if (isUserFound(user)) {
                 user.setRole(ADMIN);
             }
@@ -82,15 +78,12 @@ public class UsersManager {
         Client client = (Client) user;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
-        userDAO.closeConnection();
     }
 
-    public List<Client> getAllClients(FactoryType factoryType) throws SQLException, NamingException {
-        List<Client> clients;
+    public List<? extends User> getAllClients(FactoryType factoryType) throws SQLException, NamingException {
+        List<? extends User> clients;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
-        ClientMySqlDAO clientDAO = (ClientMySqlDAO) userDAO;
-        clients = clientDAO.getAllUsers(CLIENT);
-        clientDAO.closeConnection();
+        clients = userDAO.getAllUsers(CLIENT);
         return clients;
     }
 
@@ -112,26 +105,23 @@ public class UsersManager {
     private void updateClient(Client client, FactoryType factoryType) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.updateUser(client);
-        userDAO.closeConnection();
     }
 
     private void updateAdmin(Admin admin, FactoryType factoryType) {
         throw new UnsupportedOperationException();
     }
 
-    public List<Client> getAllClientsPortion(FactoryType factoryType, int portion, int startFrom) throws SQLException, NamingException {
-        List<Client> clients = null;
+    public List<? extends User> getAllClientsPortion(FactoryType factoryType, int portion, int startFrom) throws SQLException, NamingException {
+        List<? extends User> clients = null;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         clients = userDAO.getAllUsersPortion(portion, startFrom);
-        userDAO.closeConnection();
 
         return clients;
     }
 
     public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, mySQL);
-        int totalClientsAmount = userDAO.getTotalClientsAmount();
-        userDAO.closeConnection();
+        int totalClientsAmount = userDAO.getTotalUsersAmount();
         return totalClientsAmount;
     }
 }

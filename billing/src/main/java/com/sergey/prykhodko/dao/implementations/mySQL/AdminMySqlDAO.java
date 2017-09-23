@@ -7,27 +7,26 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Set;
 
+import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
+
 public class AdminMySqlDAO extends UserDAO {
+    private static final String GET_ADMIN_BY_LOGIN = "SELECT  login, password FROM admins WHERE login = ?";
+
     @Override
-    public void updateUser(Client client) {
+    public void updateUser(User user) {
 
     }
 
-    private String addAdminQuery = "SELECT  login, password FROM admins WHERE login = '%s'";
 
 
     public AdminMySqlDAO() throws NamingException, SQLException {
-        InitialContext initialContext = new InitialContext();
-        Context context = (Context) initialContext.lookup("java:comp/env");
-
-        DataSource ds = (DataSource) context.lookup("jdbc/billing");
-        connection = ds.getConnection();
-        addQuery = addAdminQuery;
+       connection = getConnection();
     }
 
 
@@ -57,21 +56,26 @@ public class AdminMySqlDAO extends UserDAO {
     }
 
     @Override
-    public int getTotalClientsAmount() {
+    public int getTotalUsersAmount() {
         return 0;
     }
 
     @Override
     public User getUserByLogin(String login) throws SQLException {
+        return getAdminByLogin(login);
+    }
+
+    private User getAdminByLogin(String login) throws SQLException {
         Admin admin = null;
-        statement = connection.createStatement();
-        addQuery = addValue(addQuery, login);
-        ResultSet resultSet = statement.executeQuery(addQuery);
+        try(PreparedStatement statement = connection.prepareStatement(GET_ADMIN_BY_LOGIN)) {
+            statement.setString(1, login);
+            ResultSet resultSet = statement.executeQuery();
 
-        if (resultSet.next()) {
-            admin = new Admin(resultSet.getString(1), resultSet.getString(2));
+            if (resultSet.next()) {
+                admin = new Admin(resultSet.getString(1), resultSet.getString(2));
+            }
+
         }
-
         return admin;
     }
 }

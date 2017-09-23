@@ -3,6 +3,7 @@ package com.sergey.prykhodko.controller.admin;
 import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.managers.UsersManager;
 import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.model.users.User;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -51,7 +52,7 @@ public class ClientsList extends HttpServlet {
         int portion = Integer.parseInt(getServletConfig().getInitParameter("portion"));
         changeStartPosition(request);
 
-        List<Client> clients = new ArrayList<>();
+        List<? extends User> clients = new ArrayList<>();
         try {
             clients = new UsersManager().getAllClientsPortion(FactoryType.MySQL, portion, pageNumber);
         } catch (SQLException | NamingException e) {
