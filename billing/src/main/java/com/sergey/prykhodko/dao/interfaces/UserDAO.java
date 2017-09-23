@@ -1,16 +1,12 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-import com.sergey.prykhodko.model.tariffplans.TariffPlan;
-import com.sergey.prykhodko.model.users.Client;
-import com.sergey.prykhodko.model.users.ClientBuilder;
+
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +15,6 @@ import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 public abstract class UserDAO implements DAO {
     protected Connection connection;
-    protected String addQuery;
 
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
@@ -45,7 +40,7 @@ public abstract class UserDAO implements DAO {
     public abstract int getTotalUsersAmount() throws SQLException;
 
     protected void closeConnection() throws SQLException {
-        if (connection != null){
+        if (connection != null) {
             connection.close();
         }
     }

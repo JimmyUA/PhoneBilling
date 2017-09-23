@@ -9,8 +9,6 @@ import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
 
-
-import javax.jws.soap.SOAPBinding;
 import javax.naming.NamingException;
 import java.sql.SQLException;
 import java.util.List;
@@ -94,10 +92,9 @@ public class UsersManager {
     }
 
     public void updateUser(User user, FactoryType factoryType) throws SQLException, NamingException {
-        if (user.getRole() == CLIENT){
+        if (user.getRole() == CLIENT) {
             updateClient((Client) user, factoryType);
-        }
-        else if(user.getRole() == ADMIN){
+        } else if (user.getRole() == ADMIN) {
             updateAdmin((Admin) user, factoryType);
         }
     }
@@ -121,7 +118,6 @@ public class UsersManager {
 
     public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, mySQL);
-        int totalClientsAmount = userDAO.getTotalUsersAmount();
-        return totalClientsAmount;
+        return userDAO.getTotalUsersAmount();
     }
 }
