@@ -43,12 +43,16 @@ public class ServiceMySqlDAO implements ServiceDAO {
                 services.add(service);
             }
         } finally {
-            if (connection != null){
-                connection.close();
-            }
+            closeConnection();
         }
 
         return services;
+    }
+
+    private void closeConnection() throws SQLException {
+        if (connection != null){
+            connection.close();
+        }
     }
 
     private Service buildServiceFromJoinTables(ResultSet resultSet) throws SQLException {
@@ -72,9 +76,7 @@ public class ServiceMySqlDAO implements ServiceDAO {
                 services.add(service);
             }
         } finally {
-            if (connection != null){
-                connection.close();
-            }
+            closeConnection();
         }
         return services;
     }
@@ -94,6 +96,8 @@ public class ServiceMySqlDAO implements ServiceDAO {
             statement.setString(1, service.getName());
             statement.setString(2, service.getChargePerMonth().toString());
             statement.execute();
+        } finally {
+            closeConnection();
         }
     }
 }

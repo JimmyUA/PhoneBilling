@@ -3,58 +3,59 @@ package com.sergey.prykhodko.dao.implementations.mySQL;
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
 import com.sergey.prykhodko.managers.TariffPlanBuilder;
 import org.apache.log4j.Logger;
-
-import javax.naming.Context;
-import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
 import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
 
 public class TariffPlanMySqlDAO implements TariffPlanDAO {
+    private static final String GET_ALL = "Select * FROM tariffs";
+    private static final String ADD_TARIFF = "INSERT INTO tariffs (name) VALUES (?)";
+    private static final String GET_ID_BY_NAME = "SELECT id_tariff FROM tariffs WHERE name=?";
+    private static final String ADD_CONNECT_SERVICES = "INSERT INTO tariff_service VALUES (?, ?";
+    private static final String DELETE_TAFIFF = "DELETE FROM tariffs WHERE id_tariff=?";
+    private static final String DELETE_CONNECTED_SERVICES = "DELETE FROM tariffs WHERE id_tariff=?";
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
-    private Connection connection;
-    private Statement statement;
+    private Connection connection = getConnection();
 
     public TariffPlanMySqlDAO() throws NamingException, SQLException {
-        InitialContext initialContext = new InitialContext();
-        Context context = (Context) initialContext.lookup("java:comp/env");
 
-
-        DataSource ds = (DataSource) context.lookup("jdbc/billing");
-        connection = ds.getConnection();
-        statement = connection.createStatement();
     }
 
     @Override
     public List<TariffPlanBuilder> getAllTariffPlanBuilders() throws SQLException {
         List<TariffPlanBuilder> tariffPlanBuilders = new ArrayList<>();
         
-        final String getAllQuery = "Select * FROM tariffs";
-        
         TariffPlanBuilder tariffPlanBuilder;
-        try(ResultSet resultSet = statement.executeQuery(getAllQuery)){
+        try(Statement statement = connection.createStatement()){
+            ResultSet resultSet = statement.executeQuery(GET_ALL);
             while (resultSet.next()) {
                 tariffPlanBuilder = buildTariffPlanBuilder(resultSet);
                 tariffPlanBuilders.add(tariffPlanBuilder);
             }
             return tariffPlanBuilders;
+        } finally {
+            closeConnection();
         }
     }
 
     @Override
     public void saveNewTariffPlan(String tariffName) throws SQLException {
-        String addNewTariffQuery = "INSERT INTO tariffs (name) VALUES ('" + tariffName + "')";
-        boolean isAdded = !(statement.execute(addNewTariffQuery));
-        if (isAdded){
-            logger.info("Created new tariff plan \"" + tariffName + "\"");
+        try(PreparedStatement statement = connection.prepareStatement(ADD_TARIFF)) {
+            statement.setString(1, tariffName);
+            statement.execute();
+        } finally {
+            closeConnection();
+        }
+    }
+
+    private void closeConnection() throws SQLException {
+        if (connection != null){
+            connection.close();
         }
     }
 
@@ -66,20 +67,16 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
     }
 
     @Override
-    public void closeConnection() throws SQLException {
-        statement.close();
-        connection.close();
-
-    }
-
-    @Override
     public int getIDByName(String tariffName) throws SQLException {
         int id = -1;
-        final String getIDByNameQuery = "SELECT id_tariff FROM tariffs WHERE name='" + tariffName + "'";
-        try(ResultSet resultSet = statement.executeQuery(getIDByNameQuery)){
+        try(PreparedStatement statement = connection.prepareStatement(GET_ID_BY_NAME)){
+            statement.setString(1, tariffName);
+            ResultSet resultSet = statement.executeQuery();
             if(resultSet.next()){
                 id = resultSet.getInt(1);
             }
+        } finally {
+            closeConnection();
         }
         return id;
     }
@@ -89,19 +86,29 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
         String serviceID;
         String addServicesQuery;
 
-        for (int i = 0; i < servicesIDs.length; i++) {
-            serviceID = servicesIDs[i];
-            addServicesQuery = "INSERT INTO tariff_service VALUES (" + tariffID + ", " + serviceID + ")";
-            statement.execute(addServicesQuery);
+        try(PreparedStatement statement = connection.prepareStatement(ADD_CONNECT_SERVICES)) {
+            statement.setInt(1, tariffID);
+            for (int i = 0; i < servicesIDs.length; i++) {
+                serviceID = servicesIDs[i];
+                statement.setString(2, serviceID);
+                statement.execute();
+            }
+        } finally {
+            closeConnection();
         }
     }
 
     @Override
     public void deleteTariffPlan(String tariffID) throws SQLException {
-        final String deleteTariffQuery = "DELETE FROM tariffs WHERE id_tariff=" + tariffID;
-        final String deleteTariffFromConnectTableQuery = "DELETE FROM tariff_service WHERE id_tariff=" + tariffID;
-
-        statement.execute(deleteTariffFromConnectTableQuery);
-        statement.execute(deleteTariffQuery);
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_TAFIFF)) {
+            statement.setString(1, tariffID);
+            statement.execute();
+        }
+        try (PreparedStatement statement = connection.prepareStatement(DELETE_CONNECTED_SERVICES)) {
+            statement.setString(1, tariffID);
+            statement.execute();
+        } finally {
+            closeConnection();
+        }
     }
 }
