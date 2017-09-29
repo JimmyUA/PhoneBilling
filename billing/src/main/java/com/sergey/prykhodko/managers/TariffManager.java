@@ -32,7 +32,7 @@ public class TariffManager {
         List<Service> services;
 
         for (TariffPlanBuilder builder : builders
-             ) {
+                ) {
             services = getServicesForTariffPlan(builder, factoryType);
             builder.setServises(services);
             tariffPlans.add(builder.build());
@@ -46,9 +46,7 @@ public class TariffManager {
 
     private List<TariffPlanBuilder> getTariffPlanBuilders(FactoryType factoryType) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
-        List<TariffPlanBuilder> builders = tariffPlanDAO.getAllTariffPlanBuilders();
-        tariffPlanDAO.closeConnection();
-        return builders;
+        return tariffPlanDAO.getAllTariffPlanBuilders();
     }
 
     private TariffPlanDAO getTariffPlanDAO(FactoryType factoryType) throws SQLException, NamingException {
@@ -59,25 +57,20 @@ public class TariffManager {
     public void addNewTariffPlan(FactoryType factoryType, String tariffName) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
         tariffPlanDAO.saveNewTariffPlan(tariffName);
-        tariffPlanDAO.closeConnection();
     }
 
     public int getIDByName(FactoryType factoryType, String tariffName) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
-        int ID = tariffPlanDAO.getIDByName(tariffName);
-        tariffPlanDAO.closeConnection();
-        return ID;
+        return tariffPlanDAO.getIDByName(tariffName);
     }
 
     public void addServicesToTariff(int tariffID, String[] servicesIDs, FactoryType factoryType) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
         tariffPlanDAO.addServicesToTariffPlan(tariffID, servicesIDs);
-        tariffPlanDAO.closeConnection();
     }
 
     public void deleteTariff(FactoryType factoryType, String tariffID) throws SQLException, NamingException {
         TariffPlanDAO tariffPlanDAO = getTariffPlanDAO(factoryType);
         tariffPlanDAO.deleteTariffPlan(tariffID);
-        tariffPlanDAO.closeConnection();
     }
 }
