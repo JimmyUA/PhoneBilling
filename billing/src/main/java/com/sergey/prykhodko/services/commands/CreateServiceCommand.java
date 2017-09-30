@@ -1,6 +1,6 @@
-package com.sergey.prykhodko.managers.commands;
+package com.sergey.prykhodko.services.commands;
 
-import com.sergey.prykhodko.managers.ServiceManager;
+import com.sergey.prykhodko.services.ServiceManager;
 import com.sergey.prykhodko.model.services.Service;
 import org.apache.log4j.Logger;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
 import static com.sergey.prykhodko.dao.factories.FactoryType.MySQL;
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class CreateServiceCommand implements Command {
     private static Logger logger = Logger.getLogger(getCurrentClassName());

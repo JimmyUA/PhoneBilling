@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.controller.admin.tarifs;
 
-import com.sergey.prykhodko.managers.commands.DeleteTariffCommand;
+import com.sergey.prykhodko.services.commands.DeleteTariffCommand;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(name = "deleteTariff", urlPatterns = "/deleteTariff")
 public class DeleteTariff extends HttpServlet {

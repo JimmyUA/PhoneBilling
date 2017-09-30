@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.managers;
+package com.sergey.prykhodko.util;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

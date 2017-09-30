@@ -1,8 +1,8 @@
 package com.sergey.prykhodko.controller.admin.tarifs;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.ServiceManager;
-import com.sergey.prykhodko.managers.commands.CreateTariffCommand;
+import com.sergey.prykhodko.services.ServiceManager;
+import com.sergey.prykhodko.services.commands.CreateTariffCommand;
 import com.sergey.prykhodko.model.services.Service;
 import org.apache.log4j.Logger;
 
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(name = "createTariff", urlPatterns = "/createTariff")
 public class CreateTariffController extends HttpServlet {

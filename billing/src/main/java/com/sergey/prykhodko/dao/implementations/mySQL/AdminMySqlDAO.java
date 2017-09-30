@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class AdminMySqlDAO extends UserDAO {
     private static final String GET_ADMIN_BY_LOGIN = "SELECT  login, password FROM admins WHERE login = ?";

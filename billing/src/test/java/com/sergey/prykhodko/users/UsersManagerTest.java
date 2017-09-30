@@ -7,7 +7,7 @@ public class UsersManagerTest {
 
 //    @Test
 //    public void getClient() throws Exception {
-//        User user = new UsersManager().getUserByLogin("client", FactoryType.MySQL);
+//        User user = new UsersService().getUserByLogin("client", FactoryType.MySQL);
 //        assertEquals(UserRole.CLIENT, user.getRole());
 //    }
 }

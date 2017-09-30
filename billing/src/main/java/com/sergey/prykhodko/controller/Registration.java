@@ -1,12 +1,13 @@
 package com.sergey.prykhodko.controller;
 
 
-import com.sergey.prykhodko.managers.ClientValidator;
-import com.sergey.prykhodko.managers.PasswordEncoder;
-import com.sergey.prykhodko.managers.UserService;
-import com.sergey.prykhodko.managers.commands.RegisterClient;
+import com.sergey.prykhodko.services.ClientValidator;
+import com.sergey.prykhodko.util.PasswordEncoder;
+import com.sergey.prykhodko.services.UserService;
+import com.sergey.prykhodko.services.commands.RegisterClient;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.ClientBuilder;
+import com.sergey.prykhodko.util.Accounts;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 
 @WebServlet("/registration")
@@ -38,15 +39,16 @@ public class Registration extends HttpServlet {
         Client client;
         if (password.equals(confirmPassword)) {
             password = PasswordEncoder.encodePassword(password);
-                client = new ClientBuilder()
+            client = new ClientBuilder()
                     .setLogin(login)
                     .setPassword(password)
                     .setEmail(email)
                     .setActive(false)
                     .setFullName(fullName)
+                    .setTariffPlanId(1)
+                    .setAccountId(Accounts.generateId())
                     .build();
-        }
-        else {
+        } else {
             logger.error("Client was not registered, reason \"passwords is not equals\" " +
                     "entered password: " + "\"" + password + "\"" +
                     ", entered confirmation: " + "\"" + confirmPassword + "\"");
@@ -61,8 +63,7 @@ public class Registration extends HttpServlet {
             } catch (SQLException | NamingException e) {
                 logger.error(e);
             }
-        }
-        else {
+        } else {
             logger.error("Client with e-mail: " + client.getEmail() + " is not registered");
             response.sendRedirect("error.jsp");
         }

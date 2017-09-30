@@ -1,13 +1,7 @@
 package com.sergey.prykhodko.dao.factories;
 
-import com.sergey.prykhodko.dao.implementations.mySQL.AdminMySqlDAO;
-import com.sergey.prykhodko.dao.implementations.mySQL.ClientMySqlDAO;
-import com.sergey.prykhodko.dao.implementations.mySQL.ServiceMySqlDAO;
-import com.sergey.prykhodko.dao.implementations.mySQL.TariffPlanMySqlDAO;
-import com.sergey.prykhodko.dao.interfaces.DAOFactory;
-import com.sergey.prykhodko.dao.interfaces.ServiceDAO;
-import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
-import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.dao.implementations.mySQL.*;
+import com.sergey.prykhodko.dao.interfaces.*;
 import com.sergey.prykhodko.model.users.UserRole;
 
 import javax.naming.NamingException;
@@ -38,5 +32,10 @@ public class MySQLDAOFactory implements DAOFactory {
     @Override
     public ServiceDAO getServiceDAO() throws SQLException, NamingException {
         return new ServiceMySqlDAO();
+    }
+
+    @Override
+    public AccountDAO getAccountDAO() throws SQLException, NamingException {
+        return new AccountMySqlDAO();
     }
 }

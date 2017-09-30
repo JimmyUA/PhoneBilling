@@ -1,14 +1,14 @@
-package com.sergey.prykhodko.managers.commands;
+package com.sergey.prykhodko.services.commands;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.TariffManager;
+import com.sergey.prykhodko.services.TariffManager;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class DeleteTariffCommand implements Command{
     private static Logger logger = Logger.getLogger(getCurrentClassName());

@@ -15,12 +15,12 @@ import java.util.*;
 
 import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
 import static com.sergey.prykhodko.model.users.UserRole.CLIENT;
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class ClientMySqlDAO extends UserDAO {
     private static final String ADD_CLIENT =
-            "INSERT INTO clients (login, password, email, name, status, id_tariff) " +
-            "VALUES(?, ?, ?, ?, ?, 1)";
+            "INSERT INTO clients (login, password, email, name, status, id_tariff, id_account) " +
+            "VALUES(?, ?, ?, ?, ?, ?, ?)";
     private static final String GET_CLIENT_BY_ID = "SELECT * FROM clients WHERE id_client=?";
     private static final String UPDATE_CLIENT =
             "UPDATE clients SET password=?, email=?, status=?, id_tariff=? WHERE id_client=?";
@@ -31,6 +31,9 @@ public class ClientMySqlDAO extends UserDAO {
     private static final String GET_CLIENT_BY_LOGIN = "SELECT  * FROM clients " +
                                     "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
                                     "WHERE login=?";
+
+    private static final String LOGIN_LABEL = "login";
+    private static final String PASSWORD_LABEL = "login";
 
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
@@ -50,7 +53,6 @@ public class ClientMySqlDAO extends UserDAO {
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {
-                TariffPlan tariffPlan = new TariffPlan(resultSet.getString(10));  //TODO get tariff from tariffDAO
 
                 client = new ClientBuilder()
                         .setLogin(resultSet.getString(2))
@@ -59,7 +61,8 @@ public class ClientMySqlDAO extends UserDAO {
                         .setFullName(resultSet.getString(6))
                         .setActive(resultSet.getBoolean(7))
                         .setId(resultSet.getInt(1))
-                        .setTariffPlan(tariffPlan)
+                        .setTariffPlanId(resultSet.getInt(8))
+                        .setAccountId(resultSet.getInt(9))
                         .build();
 
             }
@@ -84,6 +87,8 @@ public class ClientMySqlDAO extends UserDAO {
             statement.setString(3, client.getEmail());
             statement.setString(4, client.getFullName());
             statement.setBoolean(5, client.isActive());
+            statement.setInt(6, client.getTariffPlanId());
+            statement.setInt(7, client.getAccountId());
             statement.execute();
         } finally {
             closeConnection();
@@ -123,9 +128,8 @@ public class ClientMySqlDAO extends UserDAO {
             statement.setString(1, client.getPassword());
             statement.setString(2, client.getEmail());
             statement.setBoolean(3, client.isActive());
-            int tariffPlanID = client.getTariffPlan().getID();
-            statement.setInt(4, tariffPlanID);
-            statement.setInt(4, client.getId());
+            statement.setInt(4, client.getTariffPlanId());
+            statement.setInt(5, client.getId());
             statement.execute();
         } finally {
             closeConnection();

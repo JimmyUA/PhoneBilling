@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.system;
+package com.sergey.prykhodko.util;
 
 public class ClassName {
     public static String getCurrentClassName(){

@@ -14,15 +14,23 @@ import java.util.Set;
 public class Client extends User {
     private String fullName;
     private boolean isActive;
-    private TariffPlan tariffPlan;
-    private Account account;
+    private Integer tariffPlanId;
+    private Integer accountId;
 
-    public Account getAccount() {
-        return account;
+    public Integer getTariffPlanId() {
+        return tariffPlanId;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public void setTariffPlanId(Integer tariffPlanId) {
+        this.tariffPlanId = tariffPlanId;
+    }
+
+    public Integer getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(Integer accountId) {
+        this.accountId = accountId;
     }
 
     public void setFullName(String fullName) {
@@ -42,14 +50,6 @@ public class Client extends User {
         return fullName;
     }
 
-    public TariffPlan getTariffPlan() {
-        return tariffPlan;
-    }
-
-    public void setTariffPlan(TariffPlan tariffPlan) {
-        this.tariffPlan = tariffPlan;
-    }
-
     public boolean isActive() {
         return isActive;
     }
@@ -58,23 +58,6 @@ public class Client extends User {
     public UserRole getRole() {
         return role;
     }
-
-    ///////////////////////////////////////////////////////////////////////
-    /////////////////////////Work with balance/////////////////////////////
-    //////////////////////////////////////////////////////////////////////
-
-    public BigDecimal checkCurrentBalance(){
-        return account.getBalance();
-    }
-
-    public void topUpBalance(BigDecimal topUpSum){
-        BigDecimal currentBalance = account.getBalance();
-        currentBalance = currentBalance.add(topUpSum);
-    }
-
-    ///////////////////////////////////////////////////////////////////////
-    /////////////////////////Work with services////////////////////////////
-    //////////////////////////////////////////////////////////////////////
 
     public void checkAvailableServices(){}
 

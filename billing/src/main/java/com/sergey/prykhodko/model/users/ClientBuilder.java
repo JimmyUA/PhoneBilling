@@ -1,15 +1,15 @@
 package com.sergey.prykhodko.model.users;
 
-import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 
 public class ClientBuilder {
-    private int id;
+    private Integer id = 0;
     private String login;
     private String password;
     private String email;
     private String fullName;
     private boolean isActive;
-    private TariffPlan tariffPlan;
+    private Integer tariffPlanId = 0;
+    private Integer accountId = 0;
 
     public ClientBuilder setId(int id) {
         this.id = id;
@@ -41,10 +41,16 @@ public class ClientBuilder {
         return this;
     }
 
-    public ClientBuilder setTariffPlan(TariffPlan tariffPlan) {
-        this.tariffPlan = tariffPlan;
+    public ClientBuilder setTariffPlanId(Integer tariffPlanId) {
+        this.tariffPlanId = tariffPlanId;
         return this;
     }
+
+    public ClientBuilder setAccountId(Integer accountId) {
+        this.accountId = accountId;
+        return this;
+    }
+
 
     public Client build(){
         Client client = new Client(login, password);
@@ -52,7 +58,8 @@ public class ClientBuilder {
         client.setEmail(email);
         client.setFullName(fullName);
         client.setActive(isActive);
-        client.setTariffPlan(tariffPlan);
+        client.setTariffPlanId(tariffPlanId);
+        client.setAccountId(accountId);
         return client;
     }
 

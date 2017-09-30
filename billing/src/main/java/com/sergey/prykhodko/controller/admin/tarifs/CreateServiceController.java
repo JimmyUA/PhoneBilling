@@ -1,7 +1,6 @@
 package com.sergey.prykhodko.controller.admin.tarifs;
 
-import com.sergey.prykhodko.managers.commands.CreateServiceCommand;
-import com.sergey.prykhodko.managers.commands.CreateTariffCommand;
+import com.sergey.prykhodko.services.commands.CreateServiceCommand;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -14,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(name = "createService", urlPatterns = "/createService")
 public class CreateServiceController extends HttpServlet {

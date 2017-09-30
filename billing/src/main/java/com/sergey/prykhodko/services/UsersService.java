@@ -16,7 +16,7 @@ import java.util.List;
 import static com.sergey.prykhodko.model.users.UserRole.*;
 import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
-public class UsersManager {
+public class UsersService {
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
     public User getUserByLogin(String login, FactoryType factoryType) throws SQLException, NamingException {
@@ -74,6 +74,7 @@ public class UsersManager {
 
     private void addClientToDB(User user, FactoryType factoryType) throws SQLException, NamingException {
         Client client = (Client) user;
+        new AccountService().createAccountForNewClient(client.getAccountId(), factoryType);
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
     }

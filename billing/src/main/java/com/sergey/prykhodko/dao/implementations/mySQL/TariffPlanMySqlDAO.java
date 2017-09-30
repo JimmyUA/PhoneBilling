@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
-import com.sergey.prykhodko.managers.TariffPlanBuilder;
+import com.sergey.prykhodko.services.TariffPlanBuilder;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class TariffPlanMySqlDAO implements TariffPlanDAO {
     private static final String GET_ALL = "SELECT * FROM tariffs";

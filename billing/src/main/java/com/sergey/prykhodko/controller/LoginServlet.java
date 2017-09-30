@@ -1,10 +1,10 @@
 package com.sergey.prykhodko.controller;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.PasswordEncoder;
+import com.sergey.prykhodko.services.UsersService;
+import com.sergey.prykhodko.util.PasswordEncoder;
 import com.sergey.prykhodko.model.users.User;
 import com.sergey.prykhodko.model.users.UserRole;
-import com.sergey.prykhodko.managers.UsersManager;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(name = "login", urlPatterns = "/login")
 public class LoginServlet extends HttpServlet {
@@ -32,10 +32,11 @@ public class LoginServlet extends HttpServlet {
 
         User user = null;
         try {
-            user = new UsersManager().getUserByLogin(login, FactoryType.MySQL);
+            user = new UsersService().getUserByLogin(login, FactoryType.MySQL);
         } catch (SQLException | NamingException e) {
             logger.error(e);
             response.sendRedirect("/login");
+            return;
         }
         if (user == null) {
             logger.info("User with login: \"" + login + "\" was not found");
@@ -50,7 +51,6 @@ public class LoginServlet extends HttpServlet {
                 logger.info(user.getLogin() + " logged in");
                 request.getSession().setAttribute("user", user);
                 request.getRequestDispatcher("clientCabinet.jsp").forward(request, response);
-
             } else if (user.getRole() == UserRole.ADMIN) {
                 logger.info(user.getLogin() + " logged in ");
                 request.setAttribute("user", user);

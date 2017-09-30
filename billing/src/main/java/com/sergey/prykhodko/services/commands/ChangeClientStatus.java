@@ -1,7 +1,7 @@
-package com.sergey.prykhodko.managers.commands;
+package com.sergey.prykhodko.services.commands;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.services.UsersService;
 import com.sergey.prykhodko.model.users.Client;
 
 import javax.naming.NamingException;
@@ -25,7 +25,7 @@ public class ChangeClientStatus implements Command {
     @Override
     public void execute() throws SQLException, NamingException {
         changeClientStatus(client);
-        new UsersManager().updateUser(client, FactoryType.MySQL);
+        new UsersService().updateUser(client, FactoryType.MySQL);
     }
 
     private void changeClientStatus(Client client) {

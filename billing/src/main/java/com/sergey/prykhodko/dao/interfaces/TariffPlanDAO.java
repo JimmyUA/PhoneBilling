@@ -1,6 +1,6 @@
 package com.sergey.prykhodko.dao.interfaces;
 
-import com.sergey.prykhodko.managers.TariffPlanBuilder;
+import com.sergey.prykhodko.services.TariffPlanBuilder;
 
 import java.sql.SQLException;
 import java.util.List;

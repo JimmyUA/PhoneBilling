@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.managers;
+package com.sergey.prykhodko.services;
 
 import com.sergey.prykhodko.model.services.Service;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;

@@ -1,14 +1,14 @@
-package com.sergey.prykhodko.managers.commands;
+package com.sergey.prykhodko.services.commands;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.UsersManager;
+import com.sergey.prykhodko.services.UsersService;
 import com.sergey.prykhodko.model.users.Client;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class RegisterClient implements Command {
     private static Logger logger = Logger.getLogger(getCurrentClassName());
@@ -28,7 +28,7 @@ public class RegisterClient implements Command {
 
     @Override
     public void execute() throws SQLException, NamingException {
-        new UsersManager().addUserToDB(client, FactoryType.MySQL);
+        new UsersService().addUserToDB(client, FactoryType.MySQL);
         logger.info(client.getLogin() + " is registered as a client");
     }
 }

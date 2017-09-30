@@ -11,7 +11,7 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Set;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public abstract class UserDAO implements DAO {
     protected Connection connection;

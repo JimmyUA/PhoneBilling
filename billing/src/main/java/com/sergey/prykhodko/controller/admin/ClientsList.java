@@ -1,8 +1,7 @@
 package com.sergey.prykhodko.controller.admin;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.UsersManager;
-import com.sergey.prykhodko.model.users.Client;
+import com.sergey.prykhodko.services.UsersService;
 import com.sergey.prykhodko.model.users.User;
 import org.apache.log4j.Logger;
 
@@ -18,7 +17,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(urlPatterns = "/clientsList", name = "clientList",
             initParams = {
@@ -38,7 +37,7 @@ public class ClientsList extends HttpServlet {
         pageNumber = 1;
         int totalClientsAmount = 0;
         try {
-            totalClientsAmount = new UsersManager().getTotalClientsAmount(FactoryType.MySQL);
+            totalClientsAmount = new UsersService().getTotalClientsAmount(FactoryType.MySQL);
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }
@@ -54,7 +53,7 @@ public class ClientsList extends HttpServlet {
 
         List<? extends User> clients = new ArrayList<>();
         try {
-            clients = new UsersManager().getAllClientsPortion(FactoryType.MySQL, portion, pageNumber);
+            clients = new UsersService().getAllClientsPortion(FactoryType.MySQL, portion, pageNumber);
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }

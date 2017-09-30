@@ -1,4 +1,4 @@
-package com.sergey.prykhodko.managers.commands;
+package com.sergey.prykhodko.services.commands;
 
 public interface CommandFactory {
 

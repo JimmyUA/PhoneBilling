@@ -1,6 +1,6 @@
-package com.sergey.prykhodko.managers;
+package com.sergey.prykhodko.services;
 
-import com.sergey.prykhodko.managers.commands.Command;
+import com.sergey.prykhodko.services.commands.Command;
 
 import javax.naming.NamingException;
 import java.sql.SQLException;

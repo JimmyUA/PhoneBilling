@@ -2,9 +2,9 @@ package com.sergey.prykhodko.controller.admin;
 
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.managers.UserService;
-import com.sergey.prykhodko.managers.UsersManager;
-import com.sergey.prykhodko.managers.commands.ChangeClientStatus;
+import com.sergey.prykhodko.services.UserService;
+import com.sergey.prykhodko.services.UsersService;
+import com.sergey.prykhodko.services.commands.ChangeClientStatus;
 import com.sergey.prykhodko.model.users.Client;
 import org.apache.log4j.Logger;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet("/activate")
 public class ClientStatusChanging extends HttpServlet{
@@ -34,7 +34,7 @@ public class ClientStatusChanging extends HttpServlet{
         int id = Integer.parseInt(request.getParameter("clientID"));
         Client client = null;
         try {
-            client = (Client) new UsersManager().getUserByID(id, FactoryType.MySQL);
+            client = (Client) new UsersService().getUserByID(id, FactoryType.MySQL);
         } catch (SQLException | NamingException e) {
             logger.error(e);
         }

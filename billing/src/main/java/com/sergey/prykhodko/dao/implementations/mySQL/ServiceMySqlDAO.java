@@ -1,7 +1,7 @@
 package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.ServiceDAO;
-import com.sergey.prykhodko.managers.ServiceBuilder;
+import com.sergey.prykhodko.services.ServiceBuilder;
 import com.sergey.prykhodko.model.services.Service;
 import org.apache.log4j.Logger;
 
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
-import static com.sergey.prykhodko.system.ClassName.getCurrentClassName;
+import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class ServiceMySqlDAO implements ServiceDAO {
     private static final String GET_IDs_BY_TARIFF_ID = "SELECT * FROM tariff_service JOIN services " +

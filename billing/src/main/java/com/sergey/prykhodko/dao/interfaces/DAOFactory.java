@@ -21,4 +21,6 @@ public interface DAOFactory {
     TariffPlanDAO getTariffPlanDAO() throws SQLException, NamingException;
 
     ServiceDAO getServiceDAO() throws SQLException, NamingException;
+
+    AccountDAO getAccountDAO() throws SQLException, NamingException;
 }
