@@ -1,6 +1,7 @@
 package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.TariffPlanDAO;
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import com.sergey.prykhodko.services.TariffPlanBuilder;
 import org.apache.log4j.Logger;
 
@@ -14,6 +15,7 @@ import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class TariffPlanMySqlDAO implements TariffPlanDAO {
     private static final String GET_ALL = "SELECT * FROM tariffs";
+    private static final String GET_DEFAULT_TARIFF = "SELECT * FROM tariffs WHERE id_tariff=1";
     private static final String ADD_TARIFF = "INSERT INTO tariffs (name) VALUES (?)";
     private static final String GET_ID_BY_NAME = "SELECT id_tariff FROM tariffs WHERE name=?";
     private static final String ADD_CONNECT_SERVICES = "INSERT INTO tariff_service VALUES (?, ?)";
@@ -107,6 +109,21 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
         try (PreparedStatement statement = connection.prepareStatement(DELETE_CONNECTED_SERVICES)) {
             statement.setString(1, tariffID);
             statement.execute();
+        } finally {
+            closeConnection();
+        }
+    }
+
+    @Override
+    public TariffPlan getDefaultTariff() throws SQLException {
+        try (Statement statement = connection.createStatement()) {
+            ResultSet resultSet = statement.executeQuery(GET_DEFAULT_TARIFF);
+            TariffPlan defaultTariff = new TariffPlan();
+            if (resultSet.next()){
+                defaultTariff.setId(resultSet.getInt(1));
+                defaultTariff.setName(resultSet.getString(2));
+            }
+            return defaultTariff;
         } finally {
             closeConnection();
         }

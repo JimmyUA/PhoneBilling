@@ -23,7 +23,7 @@ public class TariffPlan {
         chargePerMonth = new BigDecimal(0.000);
     }
 
-    public int getID() {
+    public int getId() {
         return id;
     }
 

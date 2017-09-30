@@ -1,7 +1,11 @@
 package com.sergey.prykhodko.controller;
 
 
+import com.sergey.prykhodko.dao.factories.FactoryType;
+import com.sergey.prykhodko.model.account.Account;
+import com.sergey.prykhodko.services.AccountService;
 import com.sergey.prykhodko.services.ClientValidator;
+import com.sergey.prykhodko.services.TariffPlanService;
 import com.sergey.prykhodko.util.PasswordEncoder;
 import com.sergey.prykhodko.services.UserService;
 import com.sergey.prykhodko.services.commands.RegisterClient;
@@ -39,15 +43,21 @@ public class Registration extends HttpServlet {
         Client client;
         if (password.equals(confirmPassword)) {
             password = PasswordEncoder.encodePassword(password);
-            client = new ClientBuilder()
-                    .setLogin(login)
-                    .setPassword(password)
-                    .setEmail(email)
-                    .setActive(false)
-                    .setFullName(fullName)
-                    .setTariffPlanId(1)
-                    .setAccountId(Accounts.generateId())
-                    .build();
+            try {
+                client = new ClientBuilder()
+                        .setLogin(login)
+                        .setPassword(password)
+                        .setEmail(email)
+                        .setActive(false)
+                        .setFullName(fullName)
+                        .setTariffPlan(new TariffPlanService().getDefaultTariff(FactoryType.MySQL))
+                        .setAccount(new AccountService().getNewAccount())
+                        .build();
+            } catch (SQLException | NamingException e) {
+                logger.error(e);
+                response.sendRedirect("error.jsp");
+                return;
+            }
         } else {
             logger.error("Client was not registered, reason \"passwords is not equals\" " +
                     "entered password: " + "\"" + password + "\"" +

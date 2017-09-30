@@ -1,6 +1,7 @@
 package com.sergey.prykhodko.dao.implementations.mySQL;
 
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.model.account.Account;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.ClientBuilder;
@@ -10,6 +11,7 @@ import org.apache.log4j.Logger;
 
 
 import javax.naming.NamingException;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
 
@@ -21,19 +23,26 @@ public class ClientMySqlDAO extends UserDAO {
     private static final String ADD_CLIENT =
             "INSERT INTO clients (login, password, email, name, status, id_tariff, id_account) " +
             "VALUES(?, ?, ?, ?, ?, ?, ?)";
-    private static final String GET_CLIENT_BY_ID = "SELECT * FROM clients WHERE id_client=?";
+    private static final String GET_CLIENT_BY_ID = "SELECT * FROM clients " +
+            "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
+            "INNER JOIN accounts ON clients.id_account = accounts.id_account " +
+            "WHERE id_client=?";
     private static final String UPDATE_CLIENT =
             "UPDATE clients SET password=?, email=?, status=?, id_tariff=? WHERE id_client=?";
     private static final String GET_ALL_CLIENTS = "SELECT * FROM clients";
     private static final String GET_ALL_LOGINS = "SELECT login FROM clients";
-    private static final String GET_CLIENTS_PORTION = "SELECT * FROM clients ORDER BY login LIMIT ?, ?";
+    private static final String GET_CLIENTS_PORTION = "SELECT * FROM clients " +
+            "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
+            "INNER JOIN accounts ON clients.id_account = accounts.id_account " +
+            "ORDER BY login LIMIT ?, ?";
     private static final String GET_CLIENTS_AMOUNT = "SELECT COUNT(*) FROM clients";
     private static final String GET_CLIENT_BY_LOGIN = "SELECT  * FROM clients " +
-                                    "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
-                                    "WHERE login=?";
+            "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
+            "INNER JOIN accounts ON clients.id_account = accounts.id_account " +
+            "WHERE login=?";
 
     private static final String LOGIN_LABEL = "login";
-    private static final String PASSWORD_LABEL = "login";
+    private static final String PASSWORD_LABEL = "password";
 
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
@@ -61,16 +70,30 @@ public class ClientMySqlDAO extends UserDAO {
                         .setFullName(resultSet.getString(6))
                         .setActive(resultSet.getBoolean(7))
                         .setId(resultSet.getInt(1))
-                        .setTariffPlanId(resultSet.getInt(8))
-                        .setAccountId(resultSet.getInt(9))
+                        .setTariffPlan(buildTariffPlan(resultSet))
+                        .setAccount(buildAccount(resultSet))
                         .build();
-
             }
 
             return client;
         } finally {
             closeConnection();
         }
+    }
+
+    private Account buildAccount(ResultSet resultSet) throws SQLException {
+        Account account = new Account();
+        account.setAccountId(resultSet.getInt("id_account"));
+        account.setAccountNumber(resultSet.getString("account_number"));
+        account.setBalance(new BigDecimal(resultSet.getString("balance")));
+        return account;
+    }
+
+    private TariffPlan buildTariffPlan(ResultSet resultSet) throws SQLException {
+        TariffPlan tariffPlan = new TariffPlan();
+        tariffPlan.setId(resultSet.getInt("id_tariff"));
+        tariffPlan.setName(resultSet.getString("tariffs.name"));
+        return tariffPlan;
     }
 
     @Override
@@ -87,8 +110,8 @@ public class ClientMySqlDAO extends UserDAO {
             statement.setString(3, client.getEmail());
             statement.setString(4, client.getFullName());
             statement.setBoolean(5, client.isActive());
-            statement.setInt(6, client.getTariffPlanId());
-            statement.setInt(7, client.getAccountId());
+            statement.setInt(6, client.getTariffPlan().getId());
+            statement.setInt(7, client.getAccount().getAccountId());
             statement.execute();
         } finally {
             closeConnection();
@@ -128,7 +151,7 @@ public class ClientMySqlDAO extends UserDAO {
             statement.setString(1, client.getPassword());
             statement.setString(2, client.getEmail());
             statement.setBoolean(3, client.isActive());
-            statement.setInt(4, client.getTariffPlanId());
+            statement.setInt(4, client.getTariffPlan().getId());
             statement.setInt(5, client.getId());
             statement.execute();
         } finally {
@@ -167,17 +190,19 @@ public class ClientMySqlDAO extends UserDAO {
         String email = resultSet.getString(4);
         String fullName = resultSet.getString(6);
         boolean isActive = resultSet.getBoolean(7);
-        TariffPlan tariffPlan = null; //Todo get tariff using tariffDAO
+        TariffPlan tariffPlan = buildTariffPlan(resultSet);
+        Account account = buildAccount(resultSet);
 
-        Client client = new ClientBuilder()
+        return new ClientBuilder()
                 .setId(id)
                 .setLogin(login)
                 .setPassword(password)
                 .setFullName(fullName)
                 .setEmail(email)
                 .setActive(isActive)
+                .setTariffPlan(tariffPlan)
+                .setAccount(account)
                 .build();
-        return client;
     }
 
     public Set<String> getLogins() throws SQLException {
@@ -224,8 +249,7 @@ public class ClientMySqlDAO extends UserDAO {
         try(Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery(GET_CLIENTS_AMOUNT);
             resultSet.next();
-            int clientsAmount = Integer.parseInt(resultSet.getString(1));
-            return clientsAmount;
+            return Integer.parseInt(resultSet.getString(1));
         } finally {
             closeConnection();
         }

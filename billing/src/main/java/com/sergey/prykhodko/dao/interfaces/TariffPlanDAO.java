@@ -1,5 +1,6 @@
 package com.sergey.prykhodko.dao.interfaces;
 
+import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 import com.sergey.prykhodko.services.TariffPlanBuilder;
 
 import java.sql.SQLException;
@@ -16,4 +17,6 @@ public interface TariffPlanDAO extends DAO {
     void addServicesToTariffPlan(int tariffID, String[] servicesIDs) throws SQLException;
 
     void deleteTariffPlan(String tariffID) throws SQLException;
+
+    TariffPlan getDefaultTariff() throws SQLException;
 }
