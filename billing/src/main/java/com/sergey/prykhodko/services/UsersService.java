@@ -74,7 +74,7 @@ public class UsersService {
 
     private void addClientToDB(User user, FactoryType factoryType) throws SQLException, NamingException {
         Client client = (Client) user;
-        new AccountService().createAccountForNewClient(client.getAccountId(), factoryType);
+        new AccountService().createAccountForNewClient(client.getAccount().getAccountId(), factoryType);
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
     }

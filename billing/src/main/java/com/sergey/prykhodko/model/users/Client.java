@@ -1,12 +1,8 @@
 package com.sergey.prykhodko.model.users;
 
 import com.sergey.prykhodko.model.account.Account;
-import com.sergey.prykhodko.model.services.Service;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by Sergey on 25.07.2017.
@@ -14,23 +10,24 @@ import java.util.Set;
 public class Client extends User {
     private String fullName;
     private boolean isActive;
-    private Integer tariffPlanId;
-    private Integer accountId;
+    private TariffPlan tariffPlan;
+    private Account account;
 
-    public Integer getTariffPlanId() {
-        return tariffPlanId;
+
+    public TariffPlan getTariffPlan() {
+        return tariffPlan;
     }
 
-    public void setTariffPlanId(Integer tariffPlanId) {
-        this.tariffPlanId = tariffPlanId;
+    public void setTariffPlan(TariffPlan tariffPlan) {
+        this.tariffPlan = tariffPlan;
     }
 
-    public Integer getAccountId() {
-        return accountId;
+    public Account getAccount() {
+        return account;
     }
 
-    public void setAccountId(Integer accountId) {
-        this.accountId = accountId;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setFullName(String fullName) {
