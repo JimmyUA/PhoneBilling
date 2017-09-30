@@ -27,7 +27,7 @@
             <td>${service.getChargePerMonth()} |</td>
         </c:forEach>
         <form action="<c:url value="/deleteTariff"/>" method="post">
-            <input type="hidden" name="tariffID" value="${tariff.getID()}">
+            <input type="hidden" name="tariffID" value="${tariff.getId()}">
             <input type="submit" id="deleteTariff" name="deleteTariff"
                class="ui-button submitBtn" value="Delete Tariff">
         </form>
