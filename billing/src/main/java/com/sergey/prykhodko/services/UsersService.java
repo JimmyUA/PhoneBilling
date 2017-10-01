@@ -10,6 +10,7 @@ import com.sergey.prykhodko.model.users.UserRole;
 import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -120,5 +121,10 @@ public class UsersService {
     public int getTotalClientsAmount(FactoryType mySQL) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, mySQL);
         return userDAO.getTotalUsersAmount();
+    }
+
+    public void popUpBalance(Client client, BigDecimal amount) throws SQLException, NamingException {
+        client.popUpBalance(amount);
+        new AccountService().updateAccount(client.getAccount(), FactoryType.MySQL);
     }
 }

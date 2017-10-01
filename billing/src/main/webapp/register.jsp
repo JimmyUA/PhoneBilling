@@ -23,11 +23,11 @@
                             <div class="field" data-fieldname="name">
                                 <input id="full-name" name="full-name" autocomplete="off" value="" maxlength="50"
                                        placeholder="Full name" class="" title="Should contain 2 words"
-                                       pattern="[A-Za-z\d]* [A-Za-z\d]*">
+                                       pattern="[A-Za-zА-Яа-я\d]* [А-Яа-яA-Za-z\d]*">
                             </div>
                             <div class="field" data-fieldname="login">
                                 <input id="login" name="login" autocomplete="off" value=""  maxlength="20"
-                                       placeholder="Chose login" class="" required pattern="^[A-Za-z0-9_]{3,25}$"
+                                       placeholder="Chose login" class="" required pattern="^[А-Яа-яA-Za-z0-9_]{3,25}$"
                                         title="Should be longer than 3 letters">
                             </div>
                             <div class="field" data-fieldname="e-mail">
@@ -40,7 +40,7 @@
                                 <input id="password" name="password" autocomplete="off" value="" maxlength="50"
                                        placeholder="Chose password" class="" type="password" required
                                        title="Password should have minimum 8 letters and minimum one number"
-                                       pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$">
+                                       pattern="^(?=.*[[А-Яа-яA-Za-z])(?=.*\d)[[А-Яа-яA-Za-z\d]{8,}$">
                             </div>
                             <div class="field" data-fieldname="confirmPassword">
                                 <input id="confirmPassword" name="confirmPassword" autocomplete="off"

@@ -33,4 +33,9 @@ public class AccountService implements Service{
        account.setBalance(BigDecimal.valueOf(0.000));
        return account;
     }
+
+    public void updateAccount(Account account, FactoryType factoryType) throws SQLException, NamingException {
+        AccountDAO accountDAO = getAccountDAO(factoryType);
+        accountDAO.update(account);
+    }
 }
