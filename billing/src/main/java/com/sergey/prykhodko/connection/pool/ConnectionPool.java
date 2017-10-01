@@ -22,4 +22,15 @@ public interface ConnectionPool {
         Connection connection = dataSource.getConnection();
         return connection;
     }
+
+    static Connection getTransactionConnection() throws SQLException, NamingException {
+        InitialContext initialContext = new InitialContext();
+        Context context = (Context) initialContext.lookup(CONTEXT_PATH);
+
+
+        DataSource dataSource = (DataSource) context.lookup(DATA_SOURCE_PATH);
+        Connection connection = dataSource.getConnection();
+        connection.setAutoCommit(false);
+        return connection;
+    }
 }
