@@ -56,7 +56,7 @@ public class AccountMySqlDAO implements AccountDAO {
     public void update(Account account) throws SQLException {
         try(PreparedStatement statement = connection.prepareStatement(UPDATE)){
             statement.setString(1, account.getBalance().toString());
-            statement.setInt(2, account.getAccountId());
+            statement.setInt(2, account.getId());
             statement.execute();
         } finally {
             closeConnection();

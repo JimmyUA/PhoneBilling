@@ -2,7 +2,9 @@ package com.sergey.prykhodko.services;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
 import com.sergey.prykhodko.dao.interfaces.DAOFactory;
+import com.sergey.prykhodko.dao.interfaces.InvoiceDAO;
 import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.model.account.Invoice;
 import com.sergey.prykhodko.model.users.Admin;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.User;
@@ -75,7 +77,7 @@ public class UsersService {
 
     private void addClientToDB(User user, FactoryType factoryType) throws SQLException, NamingException {
         Client client = (Client) user;
-        new AccountService().createAccountForNewClient(client.getAccount().getAccountId(), factoryType);
+        new AccountService().createAccountForNewClient(client.getAccount().getId(), factoryType);
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
     }
@@ -126,5 +128,12 @@ public class UsersService {
     public void popUpBalance(Client client, BigDecimal amount) throws SQLException, NamingException {
         client.popUpBalance(amount);
         new AccountService().updateAccount(client.getAccount(), FactoryType.MySQL);
+    }
+
+    public List<Invoice> getUnpaidInvoices(Client client, FactoryType factoryType) throws SQLException, NamingException {
+        Integer accountId = client.getAccount().getId();
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(factoryType);
+        InvoiceDAO invoiceDAO = daoFactory.getInvoiceDAO();
+        return invoiceDAO.getUnpaidInvoices(accountId);
     }
 }

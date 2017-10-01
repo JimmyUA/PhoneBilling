@@ -38,4 +38,9 @@ public class MySQLDAOFactory implements DAOFactory {
     public AccountDAO getAccountDAO() throws SQLException, NamingException {
         return new AccountMySqlDAO();
     }
+
+    @Override
+    public InvoiceDAO getInvoiceDAO() throws SQLException, NamingException {
+        return new InvoiceMySqlDAO();
+    }
 }

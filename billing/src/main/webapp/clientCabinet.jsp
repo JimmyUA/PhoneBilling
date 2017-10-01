@@ -29,8 +29,11 @@
 <p>Tariff Plan : <c:out value="${tariff.getName()}"/></p>
 <p>Balance : <c:out value="${client.getAccount().getBalance()}"/></p>
 <div>
-    <form method="get" name="popUpAccount" action="${pageContext.request.contextPath}/popUpBalance">
-        <input type="submit" value="POPUP ACCOUNT" class="ui-button  submitBtn">
+    <form method="get" name="popUpBalance" action="<c:url value="/popUpBalance"/>">
+        <input type="submit" value="POPUP BALANCE" class="ui-button  submitBtn">
+    </form>
+    <form method="get" name="popUpAccount" action="<c:url value="/payForServices"/>">
+        <input type="submit" value="PAY FOR SERVICES" class="ui-button  submitBtn">
     </form>
 </div>
 

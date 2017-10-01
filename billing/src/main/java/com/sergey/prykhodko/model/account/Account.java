@@ -10,7 +10,7 @@ public class Account {
     private List<Payments> payments;
     private BigDecimal balance;
 
-    public Integer getAccountId() {
+    public Integer getId() {
         return accountId;
     }
 

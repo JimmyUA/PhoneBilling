@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sergey
-  Date: 19.09.2017
-  Time: 17:05
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:set var="tariffs" value="${requestScope.get('tariffs')}" scope="page"/>
@@ -18,7 +12,7 @@
     <c:forEach var="tariff" items="${tariffs}">
         <tr id="tariffsTable" class="table">
             <td>Tariff Plan name: "<c:out value="${tariff.getName()}"/>"</td><br>
-            <td>Charge per month: ${tariff.getChargeForMonth()} $</td><br>
+            <td>Charge per month: ${tariff.getChargePerMonth()} $</td><br>
         </tr>
         <h3>Services</h3>
         <c:forEach var="service" items="${tariff.getServices()}">

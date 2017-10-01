@@ -29,7 +29,9 @@ public class ClientMySqlDAO extends UserDAO {
             "WHERE id_client=?";
     private static final String UPDATE_CLIENT =
             "UPDATE clients SET password=?, email=?, status=?, id_tariff=? WHERE id_client=?";
-    private static final String GET_ALL_CLIENTS = "SELECT * FROM clients";
+    private static final String GET_ALL_CLIENTS = "SELECT * FROM clients " +
+            "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
+            "INNER JOIN accounts ON clients.id_account = accounts.id_account ";
     private static final String GET_ALL_LOGINS = "SELECT login FROM clients";
     private static final String GET_CLIENTS_PORTION = "SELECT * FROM clients " +
             "INNER JOIN tariffs ON clients.id_tariff=tariffs.id_tariff " +
@@ -86,6 +88,8 @@ public class ClientMySqlDAO extends UserDAO {
         account.setAccountId(resultSet.getInt("id_account"));
         account.setAccountNumber(resultSet.getString("account_number"));
         account.setBalance(new BigDecimal(resultSet.getString("balance")));
+        account.setInvoices(new ArrayList<>());
+        account.setPayments(new ArrayList<>());
         return account;
     }
 
@@ -93,6 +97,7 @@ public class ClientMySqlDAO extends UserDAO {
         TariffPlan tariffPlan = new TariffPlan();
         tariffPlan.setId(resultSet.getInt("id_tariff"));
         tariffPlan.setName(resultSet.getString("tariffs.name"));
+        tariffPlan.setServices(new ArrayList<>());
         return tariffPlan;
     }
 
@@ -111,7 +116,7 @@ public class ClientMySqlDAO extends UserDAO {
             statement.setString(4, client.getFullName());
             statement.setBoolean(5, client.isActive());
             statement.setInt(6, client.getTariffPlan().getId());
-            statement.setInt(7, client.getAccount().getAccountId());
+            statement.setInt(7, client.getAccount().getId());
             statement.execute();
         } finally {
             closeConnection();

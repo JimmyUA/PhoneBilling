@@ -35,6 +35,12 @@
         </c:forEach>
 
     <div>
+        <form name="generateInvoices" action="/generateInvoices" method="post">
+            <input type="submit" value="GENERATE INVOICES" class="ui-button  submitBtn">
+        </form>
+    </div>
+
+    <div>
         <form name="pagination" action="/clientsList" method="get">
 
             <c:if test="${sessionScope.get('pageNumber') > 1}">

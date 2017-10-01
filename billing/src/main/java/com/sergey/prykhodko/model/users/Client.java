@@ -80,11 +80,22 @@ public class Client extends User {
     }
 
     public void payAccordingTariff() {
-        BigDecimal chargePerMonth = tariffPlan.getChargeForMonth();
+        BigDecimal chargePerMonth = tariffPlan.getChargePerMonth();
         BigDecimal currentBalance = account.getBalance();
         if (chargePerMonth.compareTo(currentBalance) > 0){
             throw new NotEnoughMoneyException(NOT_ENOUGH_MONEY_MESSAGE);
         }
         account.setBalance(currentBalance.subtract(chargePerMonth));
+    }
+
+    public void pay(BigDecimal money) {
+        if (money.compareTo(BigDecimal.ZERO) <= 0){
+            throw new IllegalArgumentException();
+        }
+        BigDecimal currentBalance = account.getBalance();
+        if (money.compareTo(currentBalance) > 0){
+            throw new NotEnoughMoneyException(NOT_ENOUGH_MONEY_MESSAGE);
+        }
+        account.setBalance(currentBalance.subtract(money));
     }
 }
