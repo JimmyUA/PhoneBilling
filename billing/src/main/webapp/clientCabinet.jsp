@@ -28,6 +28,11 @@
 <p>E-mail ID: <c:out value="${client.getEmail()}"/></p>
 <p>Tariff Plan : <c:out value="${tariff.getName()}"/></p>
 <p>Balance : <c:out value="${client.getAccount().getBalance()}"/></p>
+<div>
+    <form method="get" name="popUpAccount" action="${pageContext.request.contextPath}/popUpBalance">
+        <input type="submit" value="POPUP ACCOUNT" class="ui-button  submitBtn">
+    </form>
+</div>
 
 <footer>
 
