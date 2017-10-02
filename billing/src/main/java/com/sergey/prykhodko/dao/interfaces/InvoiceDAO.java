@@ -12,4 +12,6 @@ public interface InvoiceDAO extends DAO{
     void add(Invoice invoice) throws SQLException;
 
     List<String> getInvoiceNumbersByAccountId(Integer id) throws SQLException;
+
+    List<Invoice> getInvoicesByAccountID(Integer id) throws SQLException;
 }

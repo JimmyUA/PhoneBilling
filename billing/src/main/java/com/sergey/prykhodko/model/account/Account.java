@@ -7,7 +7,7 @@ public class Account {
     private Integer accountId;
     private String accountNumber;
     private List<Invoice> invoices;
-    private List<Payments> payments;
+    private List<Payment> payments;
     private BigDecimal balance;
 
     public Integer getId() {
@@ -38,11 +38,11 @@ public class Account {
         this.invoices = invoices;
     }
 
-    public List<Payments> getPayments() {
+    public List<Payment> getPayments() {
         return payments;
     }
 
-    public void setPayments(List<Payments> payments) {
+    public void setPayments(List<Payment> payments) {
         this.payments = payments;
     }
 

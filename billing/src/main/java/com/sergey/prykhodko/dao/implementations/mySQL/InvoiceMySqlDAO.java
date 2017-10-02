@@ -14,6 +14,7 @@ import static com.sergey.prykhodko.connection.pool.ConnectionPool.getConnection;
 
 public class InvoiceMySqlDAO implements InvoiceDAO {
     private static final String GET_UNPAID_INVOICES = "SELECT * FROM invoices WHERE id_account=? AND is_paid=?";
+    private static final String GET_INVOICES_BY_ACCOUNT_ID = "SELECT * FROM invoices WHERE id_account=?";
     private final static String GET_INVOICE_NUMBERS_BY_ACCOUNT = "SELECT invoice_number FROM invoices WHERE id_account=?";
     private final static String ADD = "INSERT INTO invoices (invoice_number, amount, id_account, due_date, is_paid) " +
             "VALUES(?, ?, ?, ?, ?)";
@@ -81,6 +82,24 @@ public class InvoiceMySqlDAO implements InvoiceDAO {
             closeConnection();
         }
 
+    }
+
+    @Override
+    public List<Invoice> getInvoicesByAccountID(Integer id) throws SQLException {
+        List<Invoice> unpaidInvoices = new ArrayList<>();
+        try(PreparedStatement statement = connection.prepareStatement(GET_INVOICES_BY_ACCOUNT_ID)){
+            statement.setInt(1, id);
+
+            ResultSet resultSet = statement.executeQuery();
+            Invoice invoice;
+            while (resultSet.next()){
+                invoice = buildInvoice(resultSet);
+                unpaidInvoices.add(invoice);
+            }
+            return unpaidInvoices;
+        } finally {
+            closeConnection();
+        }
     }
 
     private void closeConnection() throws SQLException {

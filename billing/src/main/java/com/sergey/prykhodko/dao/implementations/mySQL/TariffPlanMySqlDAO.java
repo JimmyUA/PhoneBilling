@@ -47,6 +47,7 @@ public class TariffPlanMySqlDAO implements TariffPlanDAO {
         }
     }
 
+
     @Override
     public void saveNewTariffPlan(String tariffName) throws SQLException {
         try (PreparedStatement statement = connection.prepareStatement(ADD_TARIFF)) {
