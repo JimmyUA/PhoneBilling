@@ -22,4 +22,10 @@ public interface ConnectionPool {
         Connection connection = dataSource.getConnection();
         return connection;
     }
+
+    static Connection getTransactionConnection() throws SQLException, NamingException {
+        Connection connection = getConnection();
+        connection.setAutoCommit(false);
+        return connection;
+    }
 }

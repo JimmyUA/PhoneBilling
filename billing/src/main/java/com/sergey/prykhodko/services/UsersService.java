@@ -1,8 +1,11 @@
 package com.sergey.prykhodko.services;
 
 import com.sergey.prykhodko.dao.factories.FactoryType;
-import com.sergey.prykhodko.dao.interfaces.DAOFactory;
-import com.sergey.prykhodko.dao.interfaces.UserDAO;
+import com.sergey.prykhodko.dao.interfaces.*;
+import com.sergey.prykhodko.model.account.Account;
+import com.sergey.prykhodko.model.account.Invoice;
+import com.sergey.prykhodko.model.account.Payment;
+import com.sergey.prykhodko.model.services.Service;
 import com.sergey.prykhodko.model.users.Admin;
 import com.sergey.prykhodko.model.users.Client;
 import com.sergey.prykhodko.model.users.User;
@@ -27,7 +30,10 @@ public class UsersService {
         logger.info(userDAO);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
-            return user;
+            Client client = (Client) user;
+            setFullTariff(client, factoryType);
+            setFullAccount(client, factoryType);
+            return client;
         } else {
             userDAO = factory.getUserDAO(ADMIN);
             user = userDAO.getUserByLogin(login);
@@ -38,12 +44,33 @@ public class UsersService {
         }
     }
 
+    private void setFullAccount(Client client, FactoryType factoryType) throws SQLException, NamingException {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(factoryType);
+        InvoiceDAO invoiceDAO = daoFactory.getInvoiceDAO();
+        List<Invoice> invoices = invoiceDAO.getInvoicesByAccountID(client.getAccount().getId());
+        PaymentDAO paymentDAO = daoFactory.getPaymentDAO();
+        List<Payment> payments = paymentDAO.getPaymentsByAccountID(client.getAccount().getId());
+        Account account = client.getAccount();
+        account.setInvoices(invoices);
+        account.setPayments(payments);
+    }
+
+    private void setFullTariff(Client client, FactoryType factoryType) throws SQLException, NamingException {
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(factoryType);
+        ServiceDAO serviceDAO = daoFactory.getServiceDAO();
+        List<Service> services = serviceDAO.getServicesByTariffPlanID(client.getTariffPlan().getId());
+        client.getTariffPlan().setServices(services);
+    }
+
     public User getUserByID(int id, FactoryType factoryType) throws SQLException, NamingException {
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         User user = userDAO.getUserByID(id);
         if (isUserFound(user)) {
             user.setRole(CLIENT);
-            return user;
+            Client client = (Client) user;
+            setFullAccount(client, factoryType);
+            setFullTariff(client, factoryType);
+            return client;
         } else {
             userDAO = getUserDAO(ADMIN, factoryType);
             user = userDAO.getUserByID(id);
@@ -75,7 +102,7 @@ public class UsersService {
 
     private void addClientToDB(User user, FactoryType factoryType) throws SQLException, NamingException {
         Client client = (Client) user;
-        new AccountService().createAccountForNewClient(client.getAccount().getAccountId(), factoryType);
+        new AccountService().createAccountForNewClient(client.getAccount().getId(), factoryType);
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         userDAO.addUser(client);
     }
@@ -84,7 +111,17 @@ public class UsersService {
         List<? extends User> clients;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         clients = userDAO.getAllUsers(CLIENT);
+        setFullAccountAndTariff(factoryType, clients);
         return clients;
+    }
+
+    private void setFullAccountAndTariff(FactoryType factoryType, List<? extends User> clients) throws SQLException, NamingException {
+        for (User user: clients
+             ) {
+            Client client = (Client) user;
+            setFullAccount(client, factoryType);
+            setFullTariff(client, factoryType);
+        }
     }
 
 
@@ -114,6 +151,7 @@ public class UsersService {
         List<? extends User> clients = null;
         UserDAO userDAO = getUserDAO(CLIENT, factoryType);
         clients = userDAO.getAllUsersPortion(portion, startFrom);
+        setFullAccountAndTariff(factoryType, clients);
 
         return clients;
     }
@@ -126,5 +164,12 @@ public class UsersService {
     public void popUpBalance(Client client, BigDecimal amount) throws SQLException, NamingException {
         client.popUpBalance(amount);
         new AccountService().updateAccount(client.getAccount(), FactoryType.MySQL);
+    }
+
+    public List<Invoice> getUnpaidInvoices(Client client, FactoryType factoryType) throws SQLException, NamingException {
+        Integer accountId = client.getAccount().getId();
+        DAOFactory daoFactory = DAOFactory.getDAOFactory(factoryType);
+        InvoiceDAO invoiceDAO = daoFactory.getInvoiceDAO();
+        return invoiceDAO.getUnpaidInvoices(accountId);
     }
 }

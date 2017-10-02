@@ -3,6 +3,6 @@
     <Resource name="billing" auth="Container" type="javax.sql.DataSource"
               maxActive="100" maxIdle="30" maxWait="10000"
               username="root" password="Vika_Ruban" driverClassName="com.mysql.jdbc.Driver"
-              url="jdbc:mysql://localhost:3306/billing"/>
+              url="jdbc:mysql://localhost:3306/billing?useUnicode=true&amp;characterEncoding=utf8"/>
 
 </Context>

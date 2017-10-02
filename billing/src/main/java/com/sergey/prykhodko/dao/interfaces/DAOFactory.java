@@ -23,4 +23,8 @@ public interface DAOFactory {
     ServiceDAO getServiceDAO() throws SQLException, NamingException;
 
     AccountDAO getAccountDAO() throws SQLException, NamingException;
+
+    InvoiceDAO getInvoiceDAO() throws SQLException, NamingException;
+
+    PaymentDAO getPaymentDAO() throws SQLException, NamingException;
 }

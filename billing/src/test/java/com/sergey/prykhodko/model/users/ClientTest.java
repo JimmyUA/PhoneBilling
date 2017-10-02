@@ -4,6 +4,7 @@ import com.sergey.prykhodko.exceptions.NotEnoughMoneyException;
 import com.sergey.prykhodko.model.account.Account;
 import com.sergey.prykhodko.model.services.Service;
 import com.sergey.prykhodko.model.tariffplans.TariffPlan;
+import com.sergey.prykhodko.services.AccountService;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,11 +62,38 @@ public class ClientTest {
     }
 
     @Test(expected = NotEnoughMoneyException.class)
-    public void notEnoughMoneyToPay() throws Exception {
+    public void notEnoughMoneyToPayForTariff() throws Exception {
         TariffPlan tariffPlan = getTariffPlan50ChargePerMonth();
         client.setTariffPlan(tariffPlan);
 
         client.payAccordingTariff();
     }
 
+    @Test
+    public void peyDecreasesAccountBalance() throws Exception {
+        double someMoney = 50.000;
+        final BigDecimal money = BigDecimal.valueOf(someMoney);
+        client.popUpBalance(money);
+
+        client.pay(money);
+
+        assertEquals(BigDecimal.valueOf(0.000), client.checkBalance());
+    }
+
+    @Test(expected = NotEnoughMoneyException.class)
+    public void notEnoughMoneyToPay() throws Exception {
+        double someMoney = 50.000;
+        final BigDecimal money = BigDecimal.valueOf(someMoney);
+        client.pay(money);
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void payNegativeAmount() throws Exception {
+        double someMoney = 20.000;
+        final BigDecimal startMoney = BigDecimal.valueOf(someMoney);
+        client.popUpBalance(startMoney);
+        someMoney = -50.000;
+        final BigDecimal money = BigDecimal.valueOf(someMoney);
+        client.pay(money);
+    }
 }

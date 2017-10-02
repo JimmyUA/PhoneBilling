@@ -49,7 +49,7 @@ public class TariffPlan {
     }
 
 
-    public BigDecimal getChargeForMonth() {
+    public BigDecimal getChargePerMonth() {
         return chargePerMonth;
     }
 

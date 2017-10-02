@@ -16,10 +16,10 @@
 <c:set var="errorMessage" value="${sessionScope.get('errorMessage')}" scope="page"/>
 <c:set var="current" value="${param.language}" scope="session"/>
 
-<fmt:setBundle basename="billing"/>
 <c:if test="${not empty current}">
     <fmt:setLocale value="${current}" scope="session"/>
 </c:if>
+<fmt:setBundle basename="billing"/>
 
 <head>
     <title>Billing</title>
@@ -29,10 +29,11 @@
 <header>
     <form action="login.jsp" method="post">
         <select name="language">
-            <option value="en">English</option>
-            <option value="ru">Russian</option>
+            <option><fmt:message key="chose"/></option>
+            <option value="en"><fmt:message key="english"/></option>
+            <option value="ru"><fmt:message key="russian"/></option>
         </select>
-        <input type="submit" value="<fmt:message key="chose"/>"/>
+        <input type="submit" value="<fmt:message key="chose"/>">
     </form>
 </header>
 <article class="loginArticle">

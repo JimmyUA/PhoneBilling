@@ -19,4 +19,5 @@ public interface TariffPlanDAO extends DAO {
     void deleteTariffPlan(String tariffID) throws SQLException;
 
     TariffPlan getDefaultTariff() throws SQLException;
+
 }
