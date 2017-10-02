@@ -29,10 +29,11 @@
 <header>
     <form action="login.jsp" method="post">
         <select name="language">
-            <option value="en">English</option>
-            <option value="ru">Russian</option>
+            <option><fmt:message key="chose"/></option>
+            <option value="en"><fmt:message key="english"/></option>
+            <option value="ru"><fmt:message key="russian"/></option>
         </select>
-        <input type="submit" value="<fmt:message key="chose"/>"/>
+        <input type="submit" value="<fmt:message key="chose"/>">
     </form>
 </header>
 <article class="loginArticle">
