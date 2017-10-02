@@ -1,5 +1,5 @@
 
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
@@ -49,8 +49,7 @@
                                        onchange="validate()">
                             </div>
                                 <button  id="registerButton" name="signupForm:submit" class="ui-button  submitBtn >
-                                    <span class="ui-button-text>REGISTER</span>
-                                </button>
+                                    <span class="ui-button-text>REGISTER</button>
                             <p id="validate-status"></p>
                         </div>
                     </form>

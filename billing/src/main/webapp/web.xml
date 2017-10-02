@@ -41,17 +41,6 @@
         <servlet-name>activate</servlet-name>
         <url-pattern>/activate</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <description>
-        </description>
-        <display-name>Locale</display-name>
-        <servlet-name>Locale</servlet-name>
-        <servlet-class>com.sergey.prykhodko.controller.locale.LocaleHandler</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>Locale</servlet-name>
-        <url-pattern>locale</url-pattern>
-    </servlet-mapping>
 
     <filter>
         <filter-name>administratorFilter</filter-name>

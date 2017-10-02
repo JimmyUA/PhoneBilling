@@ -34,11 +34,14 @@ public class Registration extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String fullName = request.getParameter("full-name");
         String login = request.getParameter("login");
         String email = request.getParameter("e-mail");
         String password = request.getParameter("password");
         String confirmPassword = request.getParameter("confirmPassword");
+
+        System.out.println(fullName);
 
         Client client;
         if (password.equals(confirmPassword)) {
