@@ -14,7 +14,7 @@ public class Payment {
     public Payment() {
     }
 
-    public Integer getAccounteId() {
+    public Integer getAccountId() {
         return accounteId;
     }
 

@@ -18,11 +18,21 @@ public class InvoiceMySqlDAO implements InvoiceDAO {
     private final static String GET_INVOICE_NUMBERS_BY_ACCOUNT = "SELECT invoice_number FROM invoices WHERE id_account=?";
     private final static String ADD = "INSERT INTO invoices (invoice_number, amount, id_account, due_date, is_paid) " +
             "VALUES(?, ?, ?, ?, ?)";
+    private final static String UPDATE = "UPDATE invoices SET is_paid=? WHERE id_invoice=?";
 
     private Connection connection;
 
     public InvoiceMySqlDAO() throws SQLException, NamingException {
         this.connection = getConnection();
+    }
+
+    @Override
+    public void setConnection(Connection transactionConnection) throws SQLException {
+        if (connection.getAutoCommit()){
+            connection.close();
+        }
+        connection = transactionConnection;
+
     }
 
     @Override
@@ -51,6 +61,7 @@ public class InvoiceMySqlDAO implements InvoiceDAO {
                 .setAmount(resultSet.getBigDecimal("amount"))
                 .setDueDate(LocalDate.parse(resultSet.getString("due_date")))
                 .setPaid(resultSet.getBoolean("is_paid"))
+                .setAccountId(resultSet.getInt("id_account"))
                 .build();
     }
 
@@ -103,6 +114,20 @@ public class InvoiceMySqlDAO implements InvoiceDAO {
     }
 
     private void closeConnection() throws SQLException {
-        connection.close();
+        if (connection.getAutoCommit()) {
+            connection.close();
+        }
+
+    }
+
+    @Override
+    public void update(Invoice invoice) throws SQLException {
+        try(PreparedStatement statement = connection.prepareStatement(UPDATE)){
+            statement.setBoolean(1, invoice.getPaid());
+            statement.setInt(2, invoice.getId());
+            statement.execute();
+        } finally {
+            closeConnection();
+        }
     }
 }

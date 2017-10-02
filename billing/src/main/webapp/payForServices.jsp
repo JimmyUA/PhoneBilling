@@ -26,6 +26,10 @@
         <c:out value="${invoice.getDueDate()}"/></p>
 </c:forEach>
 
+<form name="payAllInvoices" method="post" action="<c:url value="/payForServices"/>">
+    <input type="submit" value="PAY ALL" class="ui-button  submitBtn">
+</form>
+
 <footer>
 
 </footer>

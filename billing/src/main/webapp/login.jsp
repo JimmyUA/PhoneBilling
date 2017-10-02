@@ -16,10 +16,10 @@
 <c:set var="errorMessage" value="${sessionScope.get('errorMessage')}" scope="page"/>
 <c:set var="current" value="${param.language}" scope="session"/>
 
-<fmt:setBundle basename="billing"/>
 <c:if test="${not empty current}">
     <fmt:setLocale value="${current}" scope="session"/>
 </c:if>
+<fmt:setBundle basename="billing"/>
 
 <head>
     <title>Billing</title>

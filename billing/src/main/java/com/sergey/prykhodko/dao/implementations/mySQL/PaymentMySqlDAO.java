@@ -7,10 +7,7 @@ import org.apache.log4j.Logger;
 
 import javax.naming.NamingException;
 import java.math.BigDecimal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +17,8 @@ import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 public class PaymentMySqlDAO implements PaymentDAO{
     private static final String GET_PAYMENTS_BY_ACCOUNT_ID = "SELECT * FROM payments WHERE id_account=?";
+    private final static String ADD = "INSERT INTO payments (payment_number, paid_amount, id_account, " +
+            "date_of_payment, id_invoice) VALUES(?, ?, ?, ?, ?)";
 
     private static Logger logger = Logger.getLogger(getCurrentClassName());
 
@@ -28,6 +27,12 @@ public class PaymentMySqlDAO implements PaymentDAO{
 
     public PaymentMySqlDAO() throws SQLException, NamingException {
         connection = getConnection();
+    }
+
+    @Override
+    public void setConnection(Connection transactionConnection) throws SQLException {
+        closeConnection();
+        connection = transactionConnection;
     }
 
     @Override
@@ -60,6 +65,23 @@ public class PaymentMySqlDAO implements PaymentDAO{
     }
 
     private void closeConnection() throws SQLException {
-        connection.close();
+        if (connection.getAutoCommit()) {
+            connection.close();
+        }
+    }
+
+    @Override
+    public void add(Payment payment) throws SQLException {
+        try(PreparedStatement statement = connection.prepareStatement(ADD)){
+            statement.setString(1, payment.getPaymentNumber());
+            statement.setBigDecimal(2, payment.getPaidAmount());
+            statement.setInt(3, payment.getAccountId());
+            statement.setDate(4, Date.valueOf(payment.getDateOfPayment()));
+            statement.setInt(5, payment.getInvoiceId());
+            statement.execute();
+
+        } finally {
+            closeConnection();
+        }
     }
 }

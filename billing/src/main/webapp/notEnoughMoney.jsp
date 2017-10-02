@@ -1,16 +1,20 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Sergey
-  Date: 02.10.2017
-  Time: 10:00
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>$Title$</title>
+    <title>Not Enough Money</title>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-$END$
+<header>
+
+</header>
+    <c:out value="${requestScope.get('errorMessage')}"/>
+<a href="<c:url value="/popUpBalance"/>">Pop_up balance</a>
+<a href="<c:url value="/clientCabinet.jsp"/>">Go back to the cabinet</a>
+<footer>
+
+</footer>
 </body>
 </html>

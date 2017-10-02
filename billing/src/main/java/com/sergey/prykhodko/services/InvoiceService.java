@@ -8,6 +8,7 @@ import com.sergey.prykhodko.model.account.Invoice;
 import com.sergey.prykhodko.model.users.User;
 
 import javax.naming.NamingException;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -36,5 +37,11 @@ public class InvoiceService implements Service{
         List<? extends User> clients = new UsersService().getAllClients(factoryType);
         new AccountService().generateInvoices(clients, factoryType);
 
+    }
+
+    public void updateInvoices(Invoice invoice, FactoryType factoryType, Connection transactionConnection) throws SQLException, NamingException {
+        InvoiceDAO invoiceDAO = getInvoiceDAO(factoryType);
+        invoiceDAO.setConnection(transactionConnection);
+        invoiceDAO.update(invoice);
     }
 }

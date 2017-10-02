@@ -24,12 +24,7 @@ public interface ConnectionPool {
     }
 
     static Connection getTransactionConnection() throws SQLException, NamingException {
-        InitialContext initialContext = new InitialContext();
-        Context context = (Context) initialContext.lookup(CONTEXT_PATH);
-
-
-        DataSource dataSource = (DataSource) context.lookup(DATA_SOURCE_PATH);
-        Connection connection = dataSource.getConnection();
+        Connection connection = getConnection();
         connection.setAutoCommit(false);
         return connection;
     }

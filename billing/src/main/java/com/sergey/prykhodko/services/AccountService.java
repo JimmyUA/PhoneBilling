@@ -14,6 +14,7 @@ import com.sergey.prykhodko.util.Invoices;
 
 import javax.naming.NamingException;
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -44,6 +45,12 @@ public class AccountService implements Service{
 
     public void updateAccount(Account account, FactoryType factoryType) throws SQLException, NamingException {
         AccountDAO accountDAO = getAccountDAO(factoryType);
+        accountDAO.update(account);
+    }
+
+    public void updateAccount(Account account, FactoryType factoryType, Connection transactionConnection) throws SQLException, NamingException {
+        AccountDAO accountDAO = getAccountDAO(factoryType);
+        accountDAO.setConnection(transactionConnection);
         accountDAO.update(account);
     }
 

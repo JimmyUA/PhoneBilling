@@ -8,11 +8,11 @@ function validate() {
     var password2 = $("#confirmPassword").val();
 
 
-    if (password2 == password1) {
-    $("#validate-status").text("valid");
+    if (password2 === password1) {
+    $("#validate-status").text("Passwords are equals");
 }
 else {
-    $("#validate-status").text("invalid");
+    $("#validate-status").text("Passwords are not equals");
 }
 
 }

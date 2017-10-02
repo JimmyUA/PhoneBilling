@@ -21,7 +21,7 @@ import static com.sergey.prykhodko.util.ClassName.getCurrentClassName;
 
 @WebServlet(urlPatterns = "/clientsList", name = "clientList",
             initParams = {
-                @WebInitParam(name = "portion", value = "5")
+                @WebInitParam(name = "portion", value = "2")
             })
 public class ClientsList extends HttpServlet {
 

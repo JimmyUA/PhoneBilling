@@ -26,6 +26,12 @@ public class AccountMySqlDAO implements AccountDAO {
     }
 
     @Override
+    public void setConnection(Connection transactionConnection) throws SQLException {
+        closeConnection();
+        connection = transactionConnection;
+    }
+
+    @Override
     public Integer getLastID() throws SQLException {
         try(Statement statement = connection.createStatement()){
             ResultSet resultSet = statement.executeQuery(GET_LAST_ID);
@@ -49,7 +55,9 @@ public class AccountMySqlDAO implements AccountDAO {
     }
 
     private void closeConnection() throws SQLException {
-        connection.close();
+        if (connection.getAutoCommit()) {
+            connection.close();
+        }
     }
 
     @Override
